@@ -14,8 +14,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AddPartController implements Initializable {
-// Initializer to make sure code is being run through the console
+public class ModifyPartController implements Initializable {
+    // Initializer to make sure code is being run through the console
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("... addPart-view has been initialized ...");
@@ -23,22 +23,21 @@ public class AddPartController implements Initializable {
 
     //Fields
     @FXML
-    private Label ap_changableText;
+    private Label mp_changableText;
     @FXML
-    private Button ap_cancelBtn;
+    private Button mp_cancelBtn;
     @FXML
-    private RadioButton ap_inHouse_rbtn;
+    private RadioButton mp_inHouse_rbtn;
     @FXML
-    private RadioButton ap_outsource_rbtn;
+    private RadioButton mp_outsource_rbtn;
 
 
 
 
     // Cancel button to go back to previous pane
     @FXML
-    public void ap_onCancelClick(ActionEvent actionEvent) throws IOException
+    public void mp_onCancelClick(ActionEvent actionEvent) throws IOException
     {
-
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("main-view.fxml"));
         Stage stage = (Stage) ((Button)actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(fxmlLoader.load(), 927, 366);
@@ -47,15 +46,15 @@ public class AddPartController implements Initializable {
     }
 
     // text changes to machine id when in house is selected
-    public void ap_onInHouseSelect(ActionEvent actionEvent)
+    public void mp_onInHouseSelect(ActionEvent actionEvent)
     {
-        ap_changableText.setText("Machine ID");
+        mp_changableText.setText("Machine ID");
     }
 
     // text changes to company name when outsource is selected
-    public void ap_onOutsourceSelect(ActionEvent actionEvent)
+    public void mp_onOutsourceSelect(ActionEvent actionEvent)
     {
-        ap_changableText.setText("Company Name");
+        mp_changableText.setText("Company Name");
 
     }
 }

@@ -8,18 +8,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="537.0" prefWidth="546.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucas.inventory.AddPartController">
+<AnchorPane prefHeight="537.0" prefWidth="546.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucas.inventory.ModifyPartController">
    <children>
-      <Label layoutX="59.0" layoutY="68.0" text="Add Part">
+      <Label layoutX="43.0" layoutY="68.0" text="Modify Part">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <RadioButton fx:id="ap_inHouse_rbtn" layoutX="139.0" layoutY="68.0" mnemonicParsing="false" onAction="#ap_onInHouseSelect" selected="true" text="In-House">
+      <RadioButton fx:id="mp_inHouse_rbtn" layoutX="139.0" layoutY="68.0" mnemonicParsing="false" onAction="#mp_onInHouseSelect" selected="true" text="In-House">
          <toggleGroup>
             <ToggleGroup fx:id="ap_group" />
          </toggleGroup></RadioButton>
-      <RadioButton fx:id="ap_outsource_rbtn" layoutX="251.0" layoutY="68.0" mnemonicParsing="false" onAction="#ap_onOutsourceSelect" text="Outsourced" toggleGroup="$ap_group" />
+      <RadioButton fx:id="mp_outsource_rbtn" layoutX="251.0" layoutY="68.0" mnemonicParsing="false" onAction="#mp_onOutsourceSelect" text="Outsourced" toggleGroup="$ap_group" />
       <TextField layoutX="150.0" layoutY="116.0" prefHeight="17.0" prefWidth="103.0" />
       <TextField layoutX="150.0" layoutY="150.0" prefHeight="17.0" prefWidth="103.0" />
       <TextField layoutX="150.0" layoutY="185.0" prefHeight="17.0" prefWidth="103.0" />
@@ -27,7 +27,7 @@
       <TextField layoutX="150.0" layoutY="249.0" prefHeight="17.0" prefWidth="103.0" />
       <TextField layoutX="308.0" layoutY="249.0" prefHeight="17.0" prefWidth="103.0" />
       <Button layoutX="251.0" layoutY="330.0" mnemonicParsing="false" text="Save" />
-      <Button fx:id="ap_cancelBtn" layoutX="319.0" layoutY="330.0" mnemonicParsing="false" onAction="#ap_onCancelClick" text="Cancel" />
+      <Button fx:id="mp_cancelBtn" layoutX="319.0" layoutY="330.0" mnemonicParsing="false" onAction="#mp_onCancelClick" text="Cancel" />
       <Label layoutX="45.0" layoutY="116.0" text="ID" />
       <Label layoutX="45.0" layoutY="150.0" text="Name" />
       <Label layoutX="45.0" layoutY="185.0" text="Inv" />
@@ -35,6 +35,6 @@
       <Label layoutX="45.0" layoutY="249.0" text="Max" />
       <Label layoutX="271.0" layoutY="251.0" text="Min" />
       <TextField layoutX="150.0" layoutY="282.0" prefHeight="17.0" prefWidth="103.0" />
-      <Label fx:id="ap_changableText" layoutX="47.0" layoutY="286.0" text="Machine ID" />
+      <Label fx:id="mp_changableText" layoutX="47.0" layoutY="286.0" text="Machine ID" />
    </children>
 </AnchorPane>

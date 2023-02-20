@@ -26,9 +26,18 @@ public class MainController implements Initializable {
 //        stage.show();
 //    }
     @FXML
-    public void onAddClick(ActionEvent actionEvent) throws IOException
+    public void onAddPartClick(ActionEvent actionEvent) throws IOException
     {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("addPart-view.fxml"));
+        Stage stage = (Stage)((Button)(actionEvent.getSource())).getScene().getWindow();
+        Scene scene = new Scene(fxmlLoader.load(), 537, 546);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void onModifyPartClick(ActionEvent actionEvent) throws IOException
+    {
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("modifyPart-view.fxml"));
         Stage stage = (Stage)((Button)(actionEvent.getSource())).getScene().getWindow();
         Scene scene = new Scene(fxmlLoader.load(), 537, 546);
         stage.setScene(scene);
