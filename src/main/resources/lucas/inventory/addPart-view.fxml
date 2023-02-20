@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="537.0" prefWidth="546.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucas.inventory.AddPartController">
+   <children>
+      <Label layoutX="59.0" layoutY="68.0" text="Add Part">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <RadioButton fx:id="inhouse" layoutX="139.0" layoutY="68.0" mnemonicParsing="false" selected="true" text="In-House" />
+      <RadioButton fx:id="outsource" layoutX="251.0" layoutY="68.0" mnemonicParsing="false" text="Outsourced" />
+      <TextField layoutX="128.0" layoutY="116.0" prefHeight="17.0" prefWidth="103.0" />
+      <TextField layoutX="128.0" layoutY="150.0" prefHeight="17.0" prefWidth="103.0" />
+      <TextField layoutX="128.0" layoutY="185.0" prefHeight="17.0" prefWidth="103.0" />
+      <TextField layoutX="128.0" layoutY="217.0" prefHeight="17.0" prefWidth="103.0" />
+      <TextField layoutX="128.0" layoutY="249.0" prefHeight="17.0" prefWidth="103.0" />
+      <TextField layoutX="286.0" layoutY="249.0" prefHeight="17.0" prefWidth="103.0" />
+      <Button layoutX="251.0" layoutY="330.0" mnemonicParsing="false" text="Save" />
+      <Button fx:id="ap_cancelBtn" layoutX="319.0" layoutY="330.0" mnemonicParsing="false" onAction="#ap_onCancelClick" text="Cancel" />
+      <Label layoutX="45.0" layoutY="116.0" text="ID" />
+      <Label layoutX="45.0" layoutY="150.0" text="Name" />
+      <Label layoutX="45.0" layoutY="185.0" text="Inv" />
+      <Label layoutX="45.0" layoutY="217.0" text="Price/Cost" />
+      <Label layoutX="45.0" layoutY="249.0" text="Max" />
+      <Label layoutX="249.0" layoutY="251.0" text="Min" />
+      <TextField layoutX="128.0" layoutY="282.0" prefHeight="17.0" prefWidth="103.0" />
+      <Label layoutX="50.0" layoutY="284.0" text="Machine ID" />
+   </children>
+</AnchorPane>

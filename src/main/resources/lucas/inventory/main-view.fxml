@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="366" maxWidth="927" minHeight="366" minWidth="927" prefHeight="366.0" prefWidth="927.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucas.inventory.MainController">
+    <children>
+        <AnchorPane layoutX="40.0" layoutY="89.0" maxHeight="220" maxWidth="409" minHeight="220" minWidth="409" prefHeight="220.0" prefWidth="409.0" style="-fx-border-radius: 10px; -fx-border-color: black;" AnchorPane.bottomAnchor="57.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="478.0" AnchorPane.topAnchor="89.0">
+            <children>
+                <TableView layoutX="10.0" layoutY="35.0" prefHeight="141.0" prefWidth="382.0">
+                    <columns>
+                        <TableColumn prefWidth="64.33334732055664" text="Part ID" />
+                        <TableColumn prefWidth="86.33333587646484" text="Part Name" />
+                        <TableColumn prefWidth="103.33332824707031" text="Inventory Level" />
+                        <TableColumn prefWidth="126.66665649414062" text="Price/Cost per Unit" />
+                    </columns>
+                </TableView>
+                <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="38.0" text="Parts">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Label>
+                <TextField layoutX="231.0" layoutY="10.0" promptText="Search by Part ID or Number" />
+                <Button fx:id="addPartBtn" layoutX="220.0" layoutY="181.0" mnemonicParsing="false" onAction="#onAddClick" text="Add" />
+                <Button layoutX="266.0" layoutY="181.0" mnemonicParsing="false" text="Modify" />
+                <Button layoutX="329.0" layoutY="181.0" mnemonicParsing="false" text="Delete" />
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutX="491.0" layoutY="89.0" maxHeight="220" maxWidth="409" minHeight="220" minWidth="409" prefHeight="220.0" prefWidth="409.0" style="-fx-border-radius: 10px; -fx-border-color: black;" AnchorPane.bottomAnchor="57.0" AnchorPane.leftAnchor="491.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="89.0">
+            <children>
+                <TableView layoutX="14.0" layoutY="35.0" prefHeight="141.0" prefWidth="382.0">
+                    <columns>
+                        <TableColumn prefWidth="59.333282470703125" text="Part ID" />
+                        <TableColumn prefWidth="97.0" text="Part Name" />
+                        <TableColumn prefWidth="98.33331298828125" text="Inventory Level" />
+                        <TableColumn prefWidth="126.66668701171875" text="Price/Cost per Unit" />
+                        <TableColumn prefWidth="126.66668701171875" text="Price/Cost per Unit" />
+                    </columns>
+                </TableView>
+                <Label layoutX="24.0" layoutY="14.0" text="Products">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Label>
+                <TextField layoutX="236.0" layoutY="10.0" promptText="Search by Part ID or Number" />
+                <Button layoutX="221.0" layoutY="181.0" mnemonicParsing="false" text="Add" />
+                <Button layoutX="270.0" layoutY="181.0" mnemonicParsing="false" text="Modify" />
+                <Button layoutX="334.0" layoutY="181.0" mnemonicParsing="false" text="Delete" />
+            </children>
+        </AnchorPane>
+        <Button layoutX="802.0" layoutY="326.0" mnemonicParsing="false" text="Exit" />
+        <Label layoutX="40.0" layoutY="35.0" text="Inventory Management System">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+        </Label>
+
+    </children>
+
+    <effect>
+        <Blend />
+    </effect>
+</AnchorPane>
