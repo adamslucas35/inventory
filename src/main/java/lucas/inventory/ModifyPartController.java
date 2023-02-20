@@ -18,7 +18,7 @@ public class ModifyPartController implements Initializable {
     // Initializer to make sure code is being run through the console
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("... addPart-view has been initialized ...");
+        System.out.println("... modifyPart-view has been initialized ...");
     }
 
     //Fields

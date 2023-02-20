@@ -14,17 +14,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable {
-
-
-
-//    public void start(Stage stage) throws IOException {
-//        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("main-view.fxml"));
-//        Scene scene = new Scene(fxmlLoader.load(), 927, 366);
-//        stage.setTitle("Hello!");
-//        stage.setScene(scene);
-//        stage.show();
-//    }
+public class MainController implements Initializable
+{
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle)
+    {
+        System.out.println("... main-view has been initialized ...");
+    }
     @FXML
     public void onAddPartClick(ActionEvent actionEvent) throws IOException
     {
@@ -44,13 +40,27 @@ public class MainController implements Initializable {
         stage.show();
     }
 
+    public void onAddProductClick(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("addProduct-view.fxml"));
+        Stage stage = (Stage)((Button)(actionEvent.getSource())).getScene().getWindow();
+        Scene scene = new Scene(fxmlLoader.load(), 928, 548);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void onModifyProductClick(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("modifyProduct-view.fxml"));
+        Stage stage = (Stage)((Button)(actionEvent.getSource())).getScene().getWindow();
+        Scene scene = new Scene(fxmlLoader.load(), 928, 548);
+        stage.setScene(scene);
+        stage.show();
+    }
 
 
-
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("... main-view has been initialized ...");
-
+    public void onExitClick(ActionEvent actionEvent)
+    {
+        final Button source = (Button) actionEvent.getSource();
+        final Stage stage  = (Stage) source.getScene().getWindow();
+        stage.close();
     }
 }
