@@ -1,4 +1,4 @@
-package lucas.inventory;
+package lucas.inventory.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -6,18 +6,24 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import lucas.inventory.MainApplication;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ModifyProductController implements Initializable {
+/** This class controls elements, buttons, and text in the addProduct-view.fxml file*/
+public class AddProductController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("...  modifyProduct-view has been initialized ...");
+        System.out.println("... addProduct-view has been initialized ...");
     }
 
-    public void mpr_onCancelClick(ActionEvent actionEvent) throws IOException {
+    /** This method exits pane when cancel button is clicked.
+     * This is the method that gets called when the cancel button is clicked on in the add product pane.
+     * @param actionEvent when cancel button is clicked
+     * @throws IOException incase of input/output error*/
+    public void apr_onCancelClick(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("main-view.fxml"));
         Stage stage = (Stage) ((Button)actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(fxmlLoader.load(), 927, 366);

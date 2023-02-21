@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="exit_btn" maxHeight="366" maxWidth="927" minHeight="366" minWidth="927" prefHeight="366.0" prefWidth="927.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucas.inventory.MainController">
+<AnchorPane fx:id="exit_btn" maxHeight="366" maxWidth="927" minHeight="366" minWidth="927" prefHeight="366.0" prefWidth="927.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucas.inventory.controller.MainController">
     <children>
         <AnchorPane layoutX="40.0" layoutY="89.0" maxHeight="220" maxWidth="409" minHeight="220" minWidth="409" prefHeight="220.0" prefWidth="409.0" style="-fx-border-radius: 10px; -fx-border-color: black;" AnchorPane.bottomAnchor="57.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="478.0" AnchorPane.topAnchor="89.0">
             <children>

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="537.0" prefWidth="546.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucas.inventory.AddPartController">
+<AnchorPane prefHeight="537.0" prefWidth="546.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucas.inventory.controller.AddPartController">
    <children>
       <Label layoutX="59.0" layoutY="68.0" text="Add Part">
          <font>
