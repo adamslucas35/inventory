@@ -22,14 +22,14 @@ public class InHouse extends Part{
     }
 
     /**
-     * @return Gets machineId
+     * @return the machineId
      * */
     public int getMachineId()
     {
         return machineId;
     }
     /**
-     * @param machineId sets the machineId
+     * @param machineId the machineId to set
      * */
     public void setMachineId(int machineId)
     {
