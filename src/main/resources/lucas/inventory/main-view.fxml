@@ -29,7 +29,7 @@
                 <TextField layoutX="231.0" layoutY="10.0" promptText="Search by Part ID or Number" />
                 <Button fx:id="addPart_btn" layoutX="220.0" layoutY="181.0" mnemonicParsing="false" onAction="#onAddPartClick" text="Add" />
                 <Button fx:id="modifyPart_btn" layoutX="266.0" layoutY="181.0" mnemonicParsing="false" onAction="#onModifyPartClick" text="Modify" />
-                <Button layoutX="329.0" layoutY="181.0" mnemonicParsing="false" text="Delete" />
+                <Button fx:id="deletePart_btn" layoutX="329.0" layoutY="181.0" mnemonicParsing="false" onAction="#onDeletePartClick" text="Delete" />
             </children>
         </AnchorPane>
         <AnchorPane fx:id="products_view" layoutX="491.0" layoutY="89.0" maxHeight="220" maxWidth="409" minHeight="220" minWidth="409" prefHeight="220.0" prefWidth="409.0" style="-fx-border-radius: 10px; -fx-border-color: black;" AnchorPane.bottomAnchor="57.0" AnchorPane.leftAnchor="491.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="89.0">
@@ -39,8 +39,7 @@
                         <TableColumn fx:id="pr_productId_col" prefWidth="59.333282470703125" text="Product Id" />
                         <TableColumn fx:id="pr_productName_col" prefWidth="97.0" text="Product Name" />
                         <TableColumn fx:id="pr_invLevel_col" prefWidth="98.33331298828125" text="Inventory Level" />
-                        <TableColumn fx:id="pr_price_col" prefWidth="126.66668701171875" text="Price/Cost per Unit" />
-                        <TableColumn prefWidth="126.66668701171875" text="Price/Cost per Unit" />
+                        <TableColumn fx:id="pr_price_col" prefWidth="125.3333740234375" text="Price/Cost per Unit" />
                     </columns>
                 </TableView>
                 <Label layoutX="24.0" layoutY="14.0" text="Products">
@@ -51,7 +50,7 @@
                 <TextField layoutX="236.0" layoutY="10.0" promptText="Search by Part ID or Number" />
                 <Button fx:id="addProduct_btn" layoutX="221.0" layoutY="181.0" mnemonicParsing="false" onAction="#onAddProductClick" text="Add" />
                 <Button fx:id="addModifyProduct_btn" layoutX="270.0" layoutY="181.0" mnemonicParsing="false" onAction="#onModifyProductClick" text="Modify" />
-                <Button layoutX="334.0" layoutY="181.0" mnemonicParsing="false" text="Delete" />
+                <Button fx:id="deleteProduct_btn" layoutX="334.0" layoutY="181.0" mnemonicParsing="false" onAction="#onDeleteProductClick" text="Delete" />
             </children>
         </AnchorPane>
         <Button fx:id="exit_btn" layoutX="802.0" layoutY="326.0" mnemonicParsing="false" onAction="#onExitClick" text="Exit" />

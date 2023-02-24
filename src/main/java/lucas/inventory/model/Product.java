@@ -140,11 +140,16 @@ public class Product {
 
     /**
      * Delete selected part.
+     * @param selectedAssociatedPart to delete from list
      * */
     public boolean deleteAssociatedPart(Part selectedAssociatedPart)
     {
         return selectedAssociatedPart == associatedParts;
     }
+    /**
+     * To return all items in list.
+     * @return associatedParts list
+     * */
 
     public ObservableList<Part> getAllAssociatedParts()
     {

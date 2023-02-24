@@ -7,6 +7,8 @@ public class Inventory
 {
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
+    private static ObservableList<Part> partsFilteredSearch = FXCollections.observableArrayList();
+    private static ObservableList<Product> productsFilteredSearch = FXCollections.observableArrayList();
 
     /**
      * Create new part.
@@ -30,69 +32,122 @@ public class Inventory
      * @return part by id*/
     public static Part lookupPart(int partId)
     {
-        return allParts.get(partId);
+        for (Part part : Inventory.getAllParts())
+        {
+            if (part.getId() == partId)
+            {
+                return part;
+            }
+        }
+    return null;
     }
+
     /** Lookup product with id.
-     * @param productId to search for product
+     * @param productId to search for productlogi
      * @return product by id*/
     public static Product lookupProduct(int productId)
     {
-        int productLoc = 0;
-        for (int i = 0; i < allProducts.size(); i++)
+        for (Product product : Inventory.getAllProducts())
         {
-            if (allProducts.get(i).getId() == productId)
+            if (productId == product.getId())
             {
-
-                productLoc = i;
+                return product;
             }
-
         }
-        return allProducts.get(productLoc);
+        return null;
     }
     /**Lookup part with name.
      * @param partName to search for part
      * @return part by name*/
     public static ObservableList<Part> lookupPart(String partName)
     {
-        ObservableList<Part> equalPart = FXCollections.observableArrayList();
-        for (int i = 0; i < allParts.size(); i++)
+        if(!(Inventory.getPartsFilteredSearch().isEmpty()))
+            Inventory.getPartsFilteredSearch().clear();
+
+        for (Part part : Inventory.getAllParts())
         {
-            if (allParts.get(i).getName().equals(partName))
+            if(part.getName().contains(partName))
             {
-                equalPart.add(allParts.get(i));
+                Inventory.getPartsFilteredSearch().add(part);
             }
         }
-        return equalPart;
-
+        if (Inventory.getPartsFilteredSearch().isEmpty())
+            return Inventory.getAllParts();
+        else
+            return Inventory.getPartsFilteredSearch();
     }
     /**Lookup product with name.
      * @param productName to search for part
      * @return product by name*/
     public static ObservableList<Product> lookupProduct(String productName)
     {
-        ObservableList<Product> equalProduct = FXCollections.observableArrayList();
-        for (int i = 0; i < allProducts.size(); i++)
+        if(!(Inventory.getProductsFilteredSearch().isEmpty()))
+            Inventory.getProductsFilteredSearch().clear();
+        for (Product product : Inventory.getAllProducts())
         {
-            if (allProducts.get(i).getName().contains(productName))
+            if (product.getName().contains((productName)))
             {
-                equalProduct.add(allProducts.get(i));
+                Inventory.getProductsFilteredSearch().add(product);
             }
         }
-
-        return equalProduct;
-
+        if (Inventory.getProductsFilteredSearch().isEmpty())
+            return Inventory.getAllProducts();
+        else
+            return getProductsFilteredSearch();
     }
 
     public static void updatePart(int index, Part selectedPart)
     {
 
+        for (Part part : Inventory.getAllParts())
+        {
+            if(part.getId() == selectedPart.getId())
+            {
+                Inventory.getAllParts().set(index, selectedPart);
+            }
+        }
+
+    }
+
+    public static void updateProduct(int index, Product newProduct)
+    {
+        for (Product product : Inventory.getAllProducts())
+        {
+            if(product.getId() == newProduct.getId())
+            {
+                Inventory.getAllProducts().set(index, newProduct);
+            }
+        }
+    }
+
+    public static boolean deletePart(Part selectedPart)
+    {
+        for (Part part : Inventory.getAllParts())
+        {
+            if (part.getId() == selectedPart.getId())
+            {
+                return Inventory.deletePart(selectedPart);
+            }
+        }
+        return false;
+    }
+
+    public static boolean deleteProduct(Product selectedProduct)
+    {
+        for (Product product : Inventory.getAllProducts())
+        {
+            if (product.getId() == selectedProduct.getId())
+            {
+                return Inventory.deleteProduct(selectedProduct);
+            }
+        }
+        return false;
     }
 
 
-
-
     /**
-     * @return allParts*/
+     * @return allParts
+     * */
     public static ObservableList<Part> getAllParts()
     {
         return  allParts;
@@ -120,4 +175,11 @@ public class Inventory
         addTestData();
     }
 
+    public static ObservableList<Part> getPartsFilteredSearch() {
+        return partsFilteredSearch;
+    }
+
+    public static ObservableList<Product> getProductsFilteredSearch() {
+        return productsFilteredSearch;
+    }
 }

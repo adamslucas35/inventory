@@ -20,12 +20,12 @@
             <ToggleGroup fx:id="ap_group" />
          </toggleGroup></RadioButton>
       <RadioButton fx:id="mp_outsource_rbtn" layoutX="251.0" layoutY="68.0" mnemonicParsing="false" onAction="#mp_onOutsourceSelect" text="Outsourced" toggleGroup="$ap_group" />
-      <TextField layoutX="150.0" layoutY="116.0" prefHeight="17.0" prefWidth="103.0" />
-      <TextField layoutX="150.0" layoutY="150.0" prefHeight="17.0" prefWidth="103.0" />
-      <TextField layoutX="150.0" layoutY="185.0" prefHeight="17.0" prefWidth="103.0" />
-      <TextField layoutX="150.0" layoutY="217.0" prefHeight="17.0" prefWidth="103.0" />
-      <TextField layoutX="150.0" layoutY="249.0" prefHeight="17.0" prefWidth="103.0" />
-      <TextField layoutX="308.0" layoutY="249.0" prefHeight="17.0" prefWidth="103.0" />
+      <TextField fx:id="mp_id_textF" layoutX="150.0" layoutY="116.0" prefHeight="17.0" prefWidth="103.0" />
+      <TextField fx:id="mp_name_textF" layoutX="150.0" layoutY="150.0" prefHeight="17.0" prefWidth="103.0" />
+      <TextField fx:id="mp_inv_textF" layoutX="150.0" layoutY="185.0" prefHeight="17.0" prefWidth="103.0" />
+      <TextField fx:id="mp_price_textF" layoutX="150.0" layoutY="217.0" prefHeight="17.0" prefWidth="103.0" />
+      <TextField fx:id="mp_max_textF" layoutX="150.0" layoutY="249.0" prefHeight="17.0" prefWidth="103.0" />
+      <TextField fx:id="mp_min_textF" layoutX="308.0" layoutY="249.0" prefHeight="17.0" prefWidth="103.0" />
       <Button layoutX="251.0" layoutY="330.0" mnemonicParsing="false" text="Save" />
       <Button fx:id="mp_cancelBtn" layoutX="319.0" layoutY="330.0" mnemonicParsing="false" onAction="#mp_onCancelClick" text="Cancel" />
       <Label layoutX="45.0" layoutY="116.0" text="ID" />
@@ -34,7 +34,7 @@
       <Label layoutX="45.0" layoutY="217.0" text="Price/Cost" />
       <Label layoutX="45.0" layoutY="249.0" text="Max" />
       <Label layoutX="271.0" layoutY="251.0" text="Min" />
-      <TextField layoutX="150.0" layoutY="282.0" prefHeight="17.0" prefWidth="103.0" />
-      <Label fx:id="mp_changableText" layoutX="47.0" layoutY="286.0" text="Machine ID" />
+      <TextField fx:id="mp_change_textF" layoutX="150.0" layoutY="282.0" prefHeight="17.0" prefWidth="103.0" />
+      <Label fx:id="mp_changable_lbl" layoutX="47.0" layoutY="286.0" text="Machine ID" />
    </children>
 </AnchorPane>

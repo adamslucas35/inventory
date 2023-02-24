@@ -20,13 +20,16 @@
             <ToggleGroup fx:id="ap_group" />
          </toggleGroup></RadioButton>
       <RadioButton fx:id="ap_outsource_rbtn" layoutX="251.0" layoutY="68.0" mnemonicParsing="false" onAction="#ap_onOutsourceSelect" text="Outsourced" toggleGroup="$ap_group" />
-      <TextField layoutX="150.0" layoutY="116.0" prefHeight="17.0" prefWidth="103.0" />
-      <TextField layoutX="150.0" layoutY="150.0" prefHeight="17.0" prefWidth="103.0" />
-      <TextField layoutX="150.0" layoutY="185.0" prefHeight="17.0" prefWidth="103.0" />
-      <TextField layoutX="150.0" layoutY="217.0" prefHeight="17.0" prefWidth="103.0" />
-      <TextField layoutX="150.0" layoutY="249.0" prefHeight="17.0" prefWidth="103.0" />
-      <TextField layoutX="308.0" layoutY="249.0" prefHeight="17.0" prefWidth="103.0" />
-      <Button layoutX="251.0" layoutY="330.0" mnemonicParsing="false" text="Save" />
+      <TextField fx:id="ap_ihID_textF" layoutX="150.0" layoutY="116.0" prefHeight="17.0" prefWidth="103.0" text="Auto Gen - Disabled">
+         <font>
+            <Font name="System Italic" size="10.0" />
+         </font></TextField>
+      <TextField fx:id="ap_ihName_textF" layoutX="150.0" layoutY="150.0" prefHeight="17.0" prefWidth="103.0" />
+      <TextField fx:id="ap_ihInv_testF" layoutX="150.0" layoutY="185.0" prefHeight="17.0" prefWidth="103.0" />
+      <TextField fx:id="ap_ihPrice_textF" layoutX="150.0" layoutY="217.0" prefHeight="17.0" prefWidth="103.0" />
+      <TextField fx:id="ap_ihMax_textF" layoutX="150.0" layoutY="249.0" prefHeight="17.0" prefWidth="103.0" />
+      <TextField fx:id="ap_ihMin_textF" layoutX="308.0" layoutY="249.0" prefHeight="17.0" prefWidth="103.0" />
+      <Button fx:id="ap_ih_save_btn" layoutX="251.0" layoutY="330.0" mnemonicParsing="false" onAction="#ap_onSaveClick" text="Save" />
       <Button fx:id="ap_cancelBtn" layoutX="319.0" layoutY="330.0" mnemonicParsing="false" onAction="#ap_onCancelClick" text="Cancel" />
       <Label layoutX="45.0" layoutY="116.0" text="ID" />
       <Label layoutX="45.0" layoutY="150.0" text="Name" />
@@ -34,7 +37,7 @@
       <Label layoutX="45.0" layoutY="217.0" text="Price/Cost" />
       <Label layoutX="45.0" layoutY="249.0" text="Max" />
       <Label layoutX="271.0" layoutY="251.0" text="Min" />
-      <TextField layoutX="150.0" layoutY="282.0" prefHeight="17.0" prefWidth="103.0" />
+      <TextField fx:id="ap_change_textF" layoutX="150.0" layoutY="282.0" prefHeight="17.0" prefWidth="103.0" />
       <Label fx:id="ap_changableText" layoutX="47.0" layoutY="286.0" text="Machine ID" />
    </children>
 </AnchorPane>

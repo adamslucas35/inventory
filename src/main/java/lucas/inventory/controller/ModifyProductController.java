@@ -20,12 +20,8 @@ public class ModifyProductController implements Initializable {
     /** This method exits pane when cancel button is clicked.
      * This is the method that gets called when the cancel button is clicked on in the modify product pane.
      * @param actionEvent when cancel button is clicked
-     * @throws IOException incase of input/output error*/
+     * @throws IOException in case of input/output error*/
     public void mpr_onCancelClick(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("main-view.fxml"));
-        Stage stage = (Stage) ((Button)actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(fxmlLoader.load(), 927, 366);
-        stage.setScene(scene);
-        stage.show();
+        MainApplication.returnToMain(actionEvent);
     }
 }

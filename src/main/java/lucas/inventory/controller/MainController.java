@@ -1,5 +1,6 @@
 package lucas.inventory.controller;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,41 +21,40 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-/** This class controls elements, buttons, and text in the main-view.fxml file*/
+/** This class controls elements, buttons, and text in the main-view.fxml file. */
 public class MainController implements Initializable
 {
-
     /**
-     * Initiate fields for main-view.
+     * Initiate fields for main-view tables.
      * */
     @FXML
-    private TableView parts_table;
+    private TableView<Part> parts_table;
     @FXML
-    private TableView products_table;
+    private TableView<Product> products_table;
     @FXML
-    private TableColumn p_partId_col;
+    private TableColumn<Part, Integer> p_partId_col;
     @FXML
-    private TableColumn p_partName_col;
+    private TableColumn<Part, String> p_partName_col;
     @FXML
-    private TableColumn p_invLevel_col;
+    private TableColumn<Part, Integer> p_invLevel_col;
     @FXML
-    private TableColumn p_price_col;
+    private TableColumn<Part, Double> p_price_col;
     @FXML
-    private TableColumn pr_productId_col;
+    private TableColumn<Product, Integer> pr_productId_col;
     @FXML
-    private TableColumn pr_productName_col;
+    private TableColumn<Product, String> pr_productName_col;
     @FXML
-    private TableColumn pr_invLevel_col;
+    private TableColumn<Product, Integer> pr_invLevel_col;
     @FXML
-    private TableColumn pr_price_col;
+    private TableColumn<Product, Double> pr_price_col;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
         System.out.println("... main-view has been initialized ...");
 
-
         parts_table.setItems(Inventory.getAllParts());
+
         p_partId_col.setCellValueFactory(new PropertyValueFactory<>("id"));
         p_partName_col.setCellValueFactory(new PropertyValueFactory<>("name"));
         p_invLevel_col.setCellValueFactory(new PropertyValueFactory<>("stock"));
@@ -87,9 +87,15 @@ public class MainController implements Initializable
      * @throws IOException in case of input/output error*/
     public void onModifyPartClick(ActionEvent actionEvent) throws IOException
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("modifyPart-view.fxml"));
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainApplication.class.getResource("modifyPart-view.fxml"));
+        loader.load();
+
+        ModifyPartController mp_controller = loader.getController();
+        mp_controller.receivePart(parts_table.getSelectionModel().getSelectedItem());
+
         Stage stage = (Stage)((Button)(actionEvent.getSource())).getScene().getWindow();
-        Scene scene = new Scene(fxmlLoader.load(), 537, 546);
+        Scene scene = new Scene(loader.getRoot(), 537, 546);
         stage.setScene(scene);
         stage.show();
     }
@@ -117,7 +123,6 @@ public class MainController implements Initializable
         stage.show();
     }
 
-
     /**Method to exit application.
      * When button is clicked, the application will close.
      * @param actionEvent execute when clicked*/
@@ -126,5 +131,12 @@ public class MainController implements Initializable
         final Button source = (Button) actionEvent.getSource();
         final Stage stage  = (Stage) source.getScene().getWindow();
         stage.close();
+    }
+
+
+    public void onDeletePartClick(ActionEvent actionEvent) {
+    }
+
+    public void onDeleteProductClick(ActionEvent actionEvent) {
     }
 }
