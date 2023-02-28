@@ -12,11 +12,11 @@
    <children>
       <AnchorPane layoutX="23.0" layoutY="17.0" prefHeight="514.0" prefWidth="881.0" style="-fx-border-color: black; -fx-border-radius: 10px;">
          <children>
-            <TextField fx:id="mrp_Id_textF" layoutX="121.0" layoutY="106.0" />
+            <TextField fx:id="mpr_Id_textF" layoutX="121.0" layoutY="106.0" />
             <TextField fx:id="mpr_Name_textF" layoutX="121.0" layoutY="144.0" />
             <TextField fx:id="mpr_Inv_textF" layoutX="121.0" layoutY="177.0" prefHeight="25.0" prefWidth="106.0" />
             <TextField fx:id="mpr_Price_textF" layoutX="121.0" layoutY="211.0" prefHeight="25.0" prefWidth="106.0" />
-            <TextField fx:id="mpr_Fax_textF" layoutX="121.0" layoutY="247.0" prefHeight="25.0" prefWidth="106.0" />
+            <TextField fx:id="mpr_Max_textF" layoutX="121.0" layoutY="247.0" prefHeight="25.0" prefWidth="106.0" />
             <TextField fx:id="mpr_Min_textF" layoutX="279.0" layoutY="247.0" prefHeight="25.0" prefWidth="106.0" />
             <Label layoutX="41.0" layoutY="28.0" text="Modify Product">
                <font>
@@ -39,7 +39,7 @@
             </TableView>
             <Button layoutX="788.0" layoutY="224.0" mnemonicParsing="false" text="Add" />
             <Button layoutX="699.0" layoutY="428.0" mnemonicParsing="false" text="Remove Associated Part" />
-            <Button layoutX="699.0" layoutY="462.0" mnemonicParsing="false" text="Save" />
+            <Button fx:id="mpr_save_btn" layoutX="699.0" layoutY="462.0" mnemonicParsing="false" onAction="#mpr_onSaveBtnClick" text="Save" />
             <Button fx:id="apr_cancel_btn" layoutX="788.0" layoutY="462.0" mnemonicParsing="false" onAction="#mpr_onCancelClick" text="Cancel" />
             <TableView layoutX="484.0" layoutY="257.0" prefHeight="152.0" prefWidth="369.0">
                <columns>

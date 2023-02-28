@@ -58,16 +58,12 @@ public class MainController implements Initializable
     {
         System.out.println("... main-view has been initialized ...");
 
-
-
         parts_table.setItems(Inventory.getAllParts());
-
 
         p_partId_col.setCellValueFactory(new PropertyValueFactory<>("id"));
         p_partName_col.setCellValueFactory(new PropertyValueFactory<>("name"));
         p_invLevel_col.setCellValueFactory(new PropertyValueFactory<>("stock"));
         p_price_col.setCellValueFactory(new PropertyValueFactory<>("price"));
-
 
         products_table.setItems(Inventory.getAllProducts());
         pr_productId_col.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -98,15 +94,14 @@ public class MainController implements Initializable
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApplication.class.getResource("modifyPart-view.fxml"));
         loader.load();
-
         ModifyPartController mp_controller = loader.getController();
         mp_controller.receivePart(parts_table.getSelectionModel().getSelectedItem());
-
-
         Stage stage = (Stage)((Button)(actionEvent.getSource())).getScene().getWindow();
         Scene scene = new Scene(loader.getRoot(), 537, 546);
         stage.setScene(scene);
         stage.show();
+
+
     }
 
     /**Method to go to add product pane.
@@ -124,17 +119,13 @@ public class MainController implements Initializable
      * Changes stage to view and modify products.
      * @param actionEvent when button is clicked
      * @throws IOException in case of input/output error*/
-    public void onModifyProductClick(ActionEvent actionEvent) throws IOException {
-
-
+    public void onModifyProductClick(ActionEvent actionEvent) throws IOException
+    {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApplication.class.getResource("modifyProduct-view.fxml"));
         loader.load();
-
         ModifyProductController mpr_controller = loader.getController();
         mpr_controller.receiveProduct(products_table.getSelectionModel().getSelectedItem());
-
-
         Stage stage = (Stage)((Button)(actionEvent.getSource())).getScene().getWindow();
         Scene scene = new Scene(loader.getRoot(), 928, 548);
         stage.setScene(scene);

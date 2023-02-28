@@ -70,6 +70,27 @@ public class ModifyPartController implements Initializable {
         MainApplication.returnToMain(actionEvent);
     }
 
+    public void mp_onSaveBtnClick(ActionEvent actionEvent) throws IOException
+    {
+
+        int index = Integer.parseInt(mp_id_textF.getText());
+        String name = mp_name_textF.getText();
+        int stock = Integer.parseInt(mp_inv_textF.getText());
+        double price = Double.parseDouble(mp_price_textF.getText());
+        int max = Integer.parseInt(mp_max_textF.getText());
+        int min = Integer.parseInt(mp_min_textF.getText());
+
+            if (mp_inHouse_rbtn.isSelected()) {
+                int machinedId = Integer.parseInt(mp_change_textF.getText());
+                Inventory.updatePart(index, new InHouse(index, name, price, stock, max, min, machinedId));
+            } else if (mp_outsource_rbtn.isSelected()) {
+                String companyName = mp_change_textF.getText();
+                Inventory.updatePart(index, new OutSourced(index, name, price, stock, max, min, companyName));
+            }
+
+        MainApplication.returnToMain(actionEvent);
+    }
+
     /** Radio button to control which text is shown.
      * When In-House is selected, display "Machine ID".
      * @param actionEvent when button is clicked*/

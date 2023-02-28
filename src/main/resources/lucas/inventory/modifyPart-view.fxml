@@ -26,7 +26,7 @@
       <TextField fx:id="mp_price_textF" layoutX="150.0" layoutY="217.0" prefHeight="17.0" prefWidth="103.0" />
       <TextField fx:id="mp_max_textF" layoutX="150.0" layoutY="249.0" prefHeight="17.0" prefWidth="103.0" />
       <TextField fx:id="mp_min_textF" layoutX="308.0" layoutY="249.0" prefHeight="17.0" prefWidth="103.0" />
-      <Button layoutX="251.0" layoutY="330.0" mnemonicParsing="false" text="Save" />
+      <Button fx:id="mp_save_btn" layoutX="251.0" layoutY="330.0" mnemonicParsing="false" onAction="#mp_onSaveBtnClick" text="Save" />
       <Button fx:id="mp_cancelBtn" layoutX="319.0" layoutY="330.0" mnemonicParsing="false" onAction="#mp_onCancelClick" text="Cancel" />
       <Label layoutX="45.0" layoutY="116.0" text="ID" />
       <Label layoutX="45.0" layoutY="150.0" text="Name" />

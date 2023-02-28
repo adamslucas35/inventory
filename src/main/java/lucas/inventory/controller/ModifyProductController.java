@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import lucas.inventory.MainApplication;
+import lucas.inventory.model.Inventory;
 import lucas.inventory.model.Product;
 
 import java.io.IOException;
@@ -20,7 +21,7 @@ import java.util.ResourceBundle;
 public class ModifyProductController implements Initializable
 {
     @FXML
-    private TextField mrp_Id_textF;
+    private TextField mpr_Id_textF;
     @FXML
     private TextField mpr_Name_textF;
     @FXML
@@ -28,7 +29,7 @@ public class ModifyProductController implements Initializable
     @FXML
     private TextField mpr_Price_textF;
     @FXML
-    private TextField mpr_Fax_textF;
+    private TextField mpr_Max_textF;
     @FXML
     private TextField mpr_Min_textF;
     @FXML
@@ -39,8 +40,8 @@ public class ModifyProductController implements Initializable
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
         System.out.println("...  modifyProduct-view has been initialized ...");
-        mrp_Id_textF.setEditable(false);
-        mrp_Id_textF.setDisable(true);
+        mpr_Id_textF.setEditable(false);
+        mpr_Id_textF.setDisable(true);
 
     }
     /** This method exits pane when cancel button is clicked.
@@ -52,8 +53,32 @@ public class ModifyProductController implements Initializable
         MainApplication.returnToMain(actionEvent);
     }
 
+    public void mpr_onSaveBtnClick(ActionEvent actionEvent) throws IOException
+    {
+        int id = Integer.parseInt(mpr_Id_textF.getText());
+        String name = mpr_Name_textF.getText();
+        int stock = Integer.parseInt(mpr_Inv_textF.getText());
+        double price = Double.parseDouble(mpr_Price_textF.getText());
+        int max = Integer.parseInt(mpr_Max_textF.getText());
+        int min = Integer.parseInt(mpr_Min_textF.getText());
+        Inventory.updateProduct(id, new Product(id, name, price, stock, min, max));
+
+
+
+        MainApplication.returnToMain(actionEvent);
+
+    }
+
+
     public void receiveProduct(Product selectedProduct)
     {
+        mpr_Id_textF.setText(String.valueOf(selectedProduct.getId()));
+        mpr_Name_textF.setText(selectedProduct.getName());
+        mpr_Inv_textF.setText(String.valueOf(selectedProduct.getStock()));
+        mpr_Price_textF.setText(String.valueOf(selectedProduct.getPrice()));
+        mpr_Max_textF.setText(String.valueOf(selectedProduct.getMax()));
+        mpr_Min_textF.setText(String.valueOf(selectedProduct.getMin()));
+
 
     }
 }

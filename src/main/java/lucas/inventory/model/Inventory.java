@@ -103,12 +103,13 @@ public class Inventory
 
     public static void updatePart(int index, Part selectedPart)
     {
-
+        int i = -1;
         for (Part part : Inventory.getAllParts())
         {
-            if(part.getId() == selectedPart.getId())
+            i++;
+            if(part.getId() == index)
             {
-                Inventory.getAllParts().set(index, selectedPart);
+                Inventory.getAllParts().set(i, selectedPart);
             }
         }
 
@@ -116,11 +117,13 @@ public class Inventory
 
     public static void updateProduct(int index, Product newProduct)
     {
+        int i = -1;
         for (Product product : Inventory.getAllProducts())
         {
+            i++;
             if(product.getId() == newProduct.getId())
             {
-                Inventory.getAllProducts().set(index, newProduct);
+                Inventory.getAllProducts().set(i, newProduct);
             }
         }
     }
