@@ -31,9 +31,11 @@ public class AddPartController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
         System.out.println("... addPart-view has been initialized ...");
+        ap_Id_textF.setEditable(false);
+        ap_Id_textF.setDisable(true);
     }
     @FXML
-    private TextField ap_ihID_textF;
+    private TextField ap_Id_textF;
     @FXML
     private TextField ap_ihName_textF;
     @FXML
@@ -91,7 +93,6 @@ public class AddPartController implements Initializable {
      * Create product based on input in text fields.
      * @param actionEvent runs code when save button is clicked*/
     public void ap_onSaveClick(ActionEvent actionEvent) throws IOException {
-        int partId = Integer.parseInt(ap_ihID_textF.getText());
         String partName = ap_ihName_textF.getText();
         double partPrice = Double.parseDouble(ap_ihPrice_textF.getText());
         int partStock = Integer.parseInt(ap_ihInv_testF.getText());
@@ -101,12 +102,12 @@ public class AddPartController implements Initializable {
         if (ap_inHouse_rbtn.isSelected())
         {
             int partMachineId = Integer.parseInt(ap_change_textF.getText());
-            Inventory.addPart(new InHouse(partId, partName, partPrice, partStock, partMin, partMax, partMachineId));
-            
-        } else if (ap_outsource_rbtn.isSelected()) {
+            Inventory.addPart(new InHouse(MainApplication.generatePartsID(), partName, partPrice, partStock, partMin, partMax, partMachineId));
+        }
+        else if (ap_outsource_rbtn.isSelected())
+        {
             String partCompanyName = ap_change_textF.getText();
-            Inventory.addPart(new OutSourced(partId, partName, partPrice, partStock, partMin, partMax, partCompanyName));
-
+            Inventory.addPart(new OutSourced(MainApplication.generatePartsID(), partName, partPrice, partStock, partMin, partMax, partCompanyName));
         }
 
 

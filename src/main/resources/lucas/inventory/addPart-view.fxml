@@ -20,7 +20,7 @@
             <ToggleGroup fx:id="ap_group" />
          </toggleGroup></RadioButton>
       <RadioButton fx:id="ap_outsource_rbtn" layoutX="251.0" layoutY="68.0" mnemonicParsing="false" onAction="#ap_onOutsourceSelect" text="Outsourced" toggleGroup="$ap_group" />
-      <TextField fx:id="ap_ihID_textF" layoutX="150.0" layoutY="116.0" prefHeight="17.0" prefWidth="103.0" text="Auto Gen - Disabled">
+      <TextField fx:id="ap_Id_textF" layoutX="150.0" layoutY="116.0" prefHeight="17.0" prefWidth="103.0" text="Auto Gen - Disabled">
          <font>
             <Font name="System Italic" size="10.0" />
          </font></TextField>

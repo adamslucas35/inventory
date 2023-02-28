@@ -22,12 +22,6 @@ import java.util.ResourceBundle;
 
 /** This class controls elements, buttons, and text in the modifyPart-view.fxml file*/
 public class ModifyPartController implements Initializable {
-    // Initializer to make sure code is being run through the console
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("... modifyPart-view has been initialized ...");
-
-    }
 
     //Fields
     @FXML
@@ -52,6 +46,18 @@ public class ModifyPartController implements Initializable {
     private RadioButton mp_inHouse_rbtn;
     @FXML
     private RadioButton mp_outsource_rbtn;
+
+
+    // Initializer to make sure code is being run through the console
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println("... modifyPart-view has been initialized ...");
+        mp_id_textF.setDisable(true);
+        mp_id_textF.setEditable(false);
+
+    }
+
+
 
 
     /** This method exits pane when cancel button is clicked.
@@ -81,23 +87,23 @@ public class ModifyPartController implements Initializable {
 
     }
 
-    public void receivePart(Part part)
+    public void receivePart(Part selectedPart)
     {
-        mp_id_textF.setText(String.valueOf(part.getId()));
-        mp_name_textF.setText(part.getName());
-        mp_inv_textF.setText(String.valueOf(part.getStock()));
-        mp_price_textF.setText(String.valueOf(part.getPrice()));
-        mp_max_textF.setText(String.valueOf(part.getMax()));
-        mp_min_textF.setText(String.valueOf(part.getMin()));
-        if (part instanceof InHouse)
+        mp_id_textF.setText(String.valueOf(selectedPart.getId()));
+        mp_name_textF.setText(selectedPart.getName());
+        mp_inv_textF.setText(String.valueOf(selectedPart.getStock()));
+        mp_price_textF.setText(String.valueOf(selectedPart.getPrice()));
+        mp_max_textF.setText(String.valueOf(selectedPart.getMax()));
+        mp_min_textF.setText(String.valueOf(selectedPart.getMin()));
+        if (selectedPart instanceof InHouse)
         {
             mp_inHouse_rbtn.fire();
             mp_inHouse_rbtn.setSelected(true);
-            mp_change_textF.setText(String.valueOf(((InHouse)part).getMachineId()));
-        } else if (part instanceof OutSourced) {
+            mp_change_textF.setText(String.valueOf(((InHouse)selectedPart).getMachineId()));
+        } else if (selectedPart instanceof OutSourced) {
             mp_outsource_rbtn.fire();
             mp_outsource_rbtn.setSelected(true);
-            mp_change_textF.setText(((OutSourced)part).getCompanyName());
+            mp_change_textF.setText(((OutSourced)selectedPart).getCompanyName());
         }
 
     }

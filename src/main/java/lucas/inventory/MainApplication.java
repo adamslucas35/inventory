@@ -15,6 +15,7 @@ import lucas.inventory.model.Part;
 import java.io.IOException;
 
 import static lucas.inventory.model.Inventory.getAllParts;
+import static lucas.inventory.model.Inventory.getAllProducts;
 
 /** This class creates an applications that runs an inventory management system*/
 public class MainApplication extends Application {
@@ -41,8 +42,19 @@ public class MainApplication extends Application {
         stage.show();
     }
 
-    public static int generatePartsID() {
-        return 0;
+    public static int generatePartsID()
+    {
+        int index;
+        for (index = 0; index <= getAllParts().size();)
+            index++;
+        return index;
+    }
+    public static int generateProductsID() {
+//        int index = 0;
+        int index;
+        for (index = 0; index <= getAllProducts().size(); )
+            index++;
+        return index;
     }
 
 

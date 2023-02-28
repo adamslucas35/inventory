@@ -34,13 +34,16 @@ public class AddProductController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("... addProduct-view has been initialized ...");
+        pr_id_textF.setEditable(false);
+        pr_id_textF.setDisable(true);
     }
 
     /** This method exits pane when cancel button is clicked.
      * This is the method that gets called when the cancel button is clicked on in the add product pane.
      * @param actionEvent when cancel button is clicked
      * @throws IOException in case of input/output error*/
-    public void pr_onCancelClick(ActionEvent actionEvent) throws IOException {
+    public void pr_onCancelClick(ActionEvent actionEvent) throws IOException
+    {
         MainApplication.returnToMain(actionEvent);
     }
 
@@ -49,14 +52,13 @@ public class AddProductController implements Initializable {
      * */
     public void pr_onSaveClick(ActionEvent actionEvent) throws IOException
     {
-        int productID = Integer.parseInt(pr_id_textF.getText());
         String productName = pr_name_textF.getText();
         double productPrice = Double.parseDouble(pr_price_textF.getText());
         int productStock = Integer.parseInt(pr_inv_textF.getText());
         int productMin = Integer.parseInt(pr_min_textF.getText());
         int productMax = Integer.parseInt(pr_max_textF.getText());
 
-        Inventory.addProduct(new Product(productID, productName, productPrice, productStock, productMin, productMax));
+        Inventory.addProduct(new Product(MainApplication.generateProductsID(), productName, productPrice, productStock, productMin, productMax));
 
 
         MainApplication.returnToMain(actionEvent);

@@ -6,19 +6,20 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import lucas.inventory.MainApplication;
 import lucas.inventory.model.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.security.ProtectionDomain;
+import java.text.NumberFormat;
 import java.util.ResourceBundle;
 
 /** This class controls elements, buttons, and text in the main-view.fxml file. */
@@ -47,13 +48,20 @@ public class MainController implements Initializable
     private TableColumn<Product, Integer> pr_invLevel_col;
     @FXML
     private TableColumn<Product, Double> pr_price_col;
+    @FXML
+    private TextField searchParts_textF;
+    @FXML
+    private TextField searchProducts_textF;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
         System.out.println("... main-view has been initialized ...");
 
+
+
         parts_table.setItems(Inventory.getAllParts());
+
 
         p_partId_col.setCellValueFactory(new PropertyValueFactory<>("id"));
         p_partName_col.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -94,6 +102,7 @@ public class MainController implements Initializable
         ModifyPartController mp_controller = loader.getController();
         mp_controller.receivePart(parts_table.getSelectionModel().getSelectedItem());
 
+
         Stage stage = (Stage)((Button)(actionEvent.getSource())).getScene().getWindow();
         Scene scene = new Scene(loader.getRoot(), 537, 546);
         stage.setScene(scene);
@@ -116,9 +125,18 @@ public class MainController implements Initializable
      * @param actionEvent when button is clicked
      * @throws IOException in case of input/output error*/
     public void onModifyProductClick(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("modifyProduct-view.fxml"));
+
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainApplication.class.getResource("modifyProduct-view.fxml"));
+        loader.load();
+
+        ModifyProductController mpr_controller = loader.getController();
+        mpr_controller.receiveProduct(products_table.getSelectionModel().getSelectedItem());
+
+
         Stage stage = (Stage)((Button)(actionEvent.getSource())).getScene().getWindow();
-        Scene scene = new Scene(fxmlLoader.load(), 928, 548);
+        Scene scene = new Scene(loader.getRoot(), 928, 548);
         stage.setScene(scene);
         stage.show();
     }
@@ -133,10 +151,53 @@ public class MainController implements Initializable
         stage.close();
     }
 
+    public void onKeyRelease_SearchParts(KeyEvent keyEvent)
+    {
+        String searchedPart = searchParts_textF.getText();
+        ObservableList<Part> filteredParts = Inventory.lookupPart(searchedPart);
 
-    public void onDeletePartClick(ActionEvent actionEvent) {
+        if (filteredParts.isEmpty()) {
+            try {
+            int id_searchedPart = Integer.parseInt(searchedPart);
+            Part part = Inventory.lookupPart(id_searchedPart);
+            if (part != null)
+                filteredParts.add(part);
+            }
+            catch (NumberFormatException e)
+            {/*ignore*/}
+        }
+
+        parts_table.setItems(filteredParts);
+    }
+    public void onKeyRelease_SearchProducts(KeyEvent keyEvent)
+    {
+        String searchedProduct = searchProducts_textF.getText();
+        ObservableList<Product> filteredProducts = Inventory.lookupProduct(searchedProduct);
+
+        if(filteredProducts.isEmpty())
+        {
+            try
+            {
+                int id_searchedProduct = Integer.parseInt(searchedProduct);
+                Product product = Inventory.lookupProduct(id_searchedProduct);
+                if (product != null)
+                    filteredProducts.add(product);
+            }
+            catch (NumberFormatException e)
+            {/*ignore*/}
+        }
+
+
+        products_table.setItems(filteredProducts);
     }
 
-    public void onDeleteProductClick(ActionEvent actionEvent) {
+    public void onDeletePartClick(ActionEvent actionEvent)
+    {
+        Inventory.deletePart(parts_table.getSelectionModel().getSelectedItem());
+    }
+
+    public void onDeleteProductClick(ActionEvent actionEvent)
+    {
+        Inventory.deleteProduct(products_table.getSelectionModel().getSelectedItem());
     }
 }

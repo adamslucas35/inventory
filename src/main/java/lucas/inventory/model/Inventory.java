@@ -2,6 +2,7 @@ package lucas.inventory.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import lucas.inventory.MainApplication;
 
 public class Inventory
 {
@@ -9,6 +10,8 @@ public class Inventory
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
     private static ObservableList<Part> partsFilteredSearch = FXCollections.observableArrayList();
     private static ObservableList<Product> productsFilteredSearch = FXCollections.observableArrayList();
+
+
 
     /**
      * Create new part.
@@ -61,39 +64,41 @@ public class Inventory
      * @return part by name*/
     public static ObservableList<Part> lookupPart(String partName)
     {
-        if(!(Inventory.getPartsFilteredSearch().isEmpty()))
-            Inventory.getPartsFilteredSearch().clear();
+        if (!(partsFilteredSearch.isEmpty()))
+        { partsFilteredSearch.clear(); }
 
-        for (Part part : Inventory.getAllParts())
+
+//        ObservableList<Part> allParts = getAllParts();
+        for (Part part : allParts)
         {
-            if(part.getName().contains(partName))
+            if (part.getName().toLowerCase().contains(partName.toLowerCase()))
             {
-                Inventory.getPartsFilteredSearch().add(part);
+                partsFilteredSearch.add(part);
             }
         }
-        if (Inventory.getPartsFilteredSearch().isEmpty())
-            return Inventory.getAllParts();
-        else
-            return Inventory.getPartsFilteredSearch();
+
+
+        return partsFilteredSearch;
+
+
     }
     /**Lookup product with name.
      * @param productName to search for part
      * @return product by name*/
     public static ObservableList<Product> lookupProduct(String productName)
     {
-        if(!(Inventory.getProductsFilteredSearch().isEmpty()))
-            Inventory.getProductsFilteredSearch().clear();
-        for (Product product : Inventory.getAllProducts())
+        if(!(productsFilteredSearch.isEmpty()))
+            productsFilteredSearch.clear();
+
+        for (Product product : allProducts)
         {
-            if (product.getName().contains((productName)))
+            if (product.getName().toLowerCase().contains(productName.toLowerCase()))
             {
-                Inventory.getProductsFilteredSearch().add(product);
+                productsFilteredSearch.add(product);
             }
         }
-        if (Inventory.getProductsFilteredSearch().isEmpty())
-            return Inventory.getAllProducts();
-        else
-            return getProductsFilteredSearch();
+        return productsFilteredSearch;
+
     }
 
     public static void updatePart(int index, Part selectedPart)
@@ -122,15 +127,16 @@ public class Inventory
 
     public static boolean deletePart(Part selectedPart)
     {
-        for (Part part : Inventory.getAllParts())
+        for (Part part : allParts)
         {
-            if (part.getId() == selectedPart.getId())
+            if(selectedPart.getId() == part.getId())
             {
-                return Inventory.deletePart(selectedPart);
+                return Inventory.getAllParts().remove(part);
             }
         }
         return false;
     }
+
 
     public static boolean deleteProduct(Product selectedProduct)
     {
@@ -138,7 +144,7 @@ public class Inventory
         {
             if (product.getId() == selectedProduct.getId())
             {
-                return Inventory.deleteProduct(selectedProduct);
+                return Inventory.getAllProducts().remove(product);
             }
         }
         return false;
@@ -163,23 +169,29 @@ public class Inventory
      * */
     private static void addTestData()
     {
-        InHouse ih1 = new InHouse(001, "Stuff", 15.00, 5, 0, 10, 0011);
+        InHouse ih1 = new InHouse(MainApplication.generatePartsID(), "Stuff", 15.00, 5, 0, 10, 0011);
         Inventory.addPart(ih1);
-        Product pr1 = new Product(001, "More Stuff", 10.25, 2, 1, 5);
-        Inventory.addProduct(pr1);
-        OutSourced os1 = new OutSourced(001, "Most Stuff", 12.21, 1, 0, 10, "WHEELS");
+        OutSourced os1 = new OutSourced(MainApplication.generatePartsID(), "Most Stuff", 12.21, 1, 0, 10, "WHEELS");
         Inventory.addPart(os1);
+        Product pr1 = new Product(MainApplication.generateProductsID(), "More Stuff", 10.25, 2, 1, 5);
+        Inventory.addProduct(pr1);
+        Product pr2 = new Product(MainApplication.generateProductsID(), "XYZ Stuff", 15.15, 20, 1, 25);
+        Inventory.addProduct(pr2);
+        Product pr3 = new Product(MainApplication.generateProductsID(), "Jiffy Lube", 89.15, 10, 1, 20);
+        Inventory.addProduct(pr3);
+        InHouse ih2 = new InHouse(MainApplication.generatePartsID(), "QRT Stuff", 5.00, 5, 0, 10, 0012);
+        Inventory.addPart(ih2);
+        OutSourced os2 = new OutSourced(MainApplication.generatePartsID(), "Items", 12.01, 1, 0, 10, "Toy-r-us");
+        Inventory.addPart(os2);
+        Product pr4 = new Product(MainApplication.generateProductsID(), "Things", 15.11, 2, 1, 5);
+        Inventory.addProduct(pr4);
+
+
+
     }
 
     static {
         addTestData();
     }
 
-    public static ObservableList<Part> getPartsFilteredSearch() {
-        return partsFilteredSearch;
-    }
-
-    public static ObservableList<Product> getProductsFilteredSearch() {
-        return productsFilteredSearch;
-    }
 }
