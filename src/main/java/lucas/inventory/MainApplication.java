@@ -20,7 +20,15 @@ import java.util.Optional;
 import static lucas.inventory.model.Inventory.getAllParts;
 import static lucas.inventory.model.Inventory.getAllProducts;
 
-/** This class creates an applications that runs an inventory management system*/
+/** This class creates an application that runs an inventory management system.
+ * Also contained are simple functions that are accessible everywhere.
+ * <b>Logical Error that was solved was making sure inventory, min and max were all within adequate ranges. I found it
+ *  * easiest to create a custom exception. I didn't know how to do this, but through some research I found it was quite
+ *  * simple and allowed me to run the same code multiple times without having to retype the same code. I corrected it by
+ *  * checking the amounts entered and verifying the min was the smallest, max was the biggest and inventory was somewhere
+ *  * in between.</b>
+ *  Javadocs folder is contained in the main folder, three folders back from current directory.
+ * */
 public class MainApplication extends Application {
     /**
      * Creates first scene and opens application.
@@ -37,6 +45,11 @@ public class MainApplication extends Application {
         stage.show();
     }
 
+    /**
+     * Function created to auto generate action of returning to the main controller.
+     * @param actionEvent recognizes action is taken, button being pushed
+     * @throws IOException in case of error in input information
+     */
     public static void returnToMain(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("main-view.fxml"));
         Stage stage = (Stage) ((Button)actionEvent.getSource()).getScene().getWindow();
@@ -45,6 +58,10 @@ public class MainApplication extends Application {
         stage.show();
     }
 
+    /**
+     * Function to auto generate id for each part created.
+     * @return new id
+     */
     public static int generatePartsID()
     {
         int index;
@@ -52,6 +69,11 @@ public class MainApplication extends Application {
             index++;
         return index;
     }
+
+    /**
+     * Function to auto generate id for each product created.
+     * @return new id
+     */
     public static int generateProductsID() {
 //        int index = 0;
         int index;

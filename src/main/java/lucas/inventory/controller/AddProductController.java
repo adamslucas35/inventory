@@ -58,7 +58,11 @@ public class AddProductController implements Initializable {
 
     private final ObservableList<Part> assocPartsList = FXCollections.observableArrayList();
 
-
+    /**
+     * Initializes program.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("... addProduct-view has been initialized ...");
@@ -90,27 +94,30 @@ public class AddProductController implements Initializable {
     }
 
     /**
-     * When save button clicked, create new product based on data entered.
-     * */
+     * Save data input when save button is clicked.
+     * @param actionEvent when save button is clicked.
+     * @throws IOException in case of invalid data input
+     */
     public void pr_onSaveClick(ActionEvent actionEvent) throws IOException
     {
         try
         {
-
         String productName = pr_name_textF.getText();
         double productPrice = Double.parseDouble(pr_price_textF.getText());
         int productStock = Integer.parseInt(pr_inv_textF.getText());
         int productMin = Integer.parseInt(pr_min_textF.getText());
         int productMax = Integer.parseInt(pr_max_textF.getText());
 
-        Product newProduct = new  Product(MainApplication.generateProductsID(), productName, productPrice, productStock, productMin, productMax);
-        for (Part part : assocPartsList)
-            newProduct.addAssociatedPart(part);
-        Inventory.addProduct(newProduct);
         if (productMin >= productMax)
             throw new InvalidValuesException(productStock, productMin, productMax);
         if (productStock > productMax || productStock < productMin)
             throw new InvalidValuesException(productStock, productMin, productMax);
+        else {
+            Product newProduct = new Product(MainApplication.generateProductsID(), productName, productPrice, productStock, productMin, productMax);
+            for (Part part : assocPartsList)
+                newProduct.addAssociatedPart(part);
+            Inventory.addProduct(newProduct);
+        }
 
         MainApplication.returnToMain(actionEvent);
         }
@@ -134,10 +141,18 @@ public class AddProductController implements Initializable {
 
     }
 
+    /**
+     * Searches through table each time key is released.
+     * Searching by name or id
+     * @param keyEvent when key is released
+     */
     public void apr_onKeyRelease_SearchParts(KeyEvent keyEvent)
     {
         String searchedPart = apr_partsSearch_textF.getText();
         ObservableList<Part> filteredParts = Inventory.lookupPart(searchedPart);
+        Alert warning = new Alert(Alert.AlertType.WARNING);
+        warning.setTitle("Not found");
+        warning.setContentText("No items have not been found");
 
         if (filteredParts.isEmpty()) {
             try {
@@ -150,9 +165,17 @@ public class AddProductController implements Initializable {
             {/*ignore*/}
         }
 
+        if (filteredParts.isEmpty())
+        {
+            warning.showAndWait();
+        }
         apr_partsTable.setItems(filteredParts);
     }
 
+    /**
+     * Adds part from parts table to associatedparts table.
+     * @param actionEvent when add button is clicked.
+     */
     public void apr_onAddClick(ActionEvent actionEvent)
     {
         Part selectedPart;
@@ -163,14 +186,25 @@ public class AddProductController implements Initializable {
 
     }
 
+    /**
+     * Removes part from associated parts table.
+     * @param actionEvent when remove button is clicked.
+     */
     public void apr_onRemoveClick(ActionEvent actionEvent)
     {
+        Alert warning = new Alert(Alert.AlertType.WARNING);
+        warning.setTitle("Not found");
+        warning.setContentText("Nothing was selected and nothing was deleted.");
         Part selectedPart = associatedPartsTable.getSelectionModel().getSelectedItem();
+
 
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you would like to remove this part from the table?");
         Optional<ButtonType> choice = confirm.showAndWait();
 
-        if (choice.isPresent() && choice.get() == ButtonType.OK)
+        if (selectedPart == null) {
+            warning.showAndWait();
+        }
+        else if (choice.isPresent() && choice.get() == ButtonType.OK )
         {
             assocPartsList.remove(selectedPart);
         }

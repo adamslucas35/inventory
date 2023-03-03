@@ -1,2 +1,4 @@
 module:lucas.inventory
 lucas.inventory
+lucas.inventory.controller
+lucas.inventory.model

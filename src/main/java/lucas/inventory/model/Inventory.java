@@ -101,6 +101,11 @@ public class Inventory
 
     }
 
+    /**
+     * Function to update part with new information.
+     * @param index keeps track of which part is selected
+     * @param selectedPart controls which part is updated
+     */
     public static void updatePart(int index, Part selectedPart)
     {
         int i = -1;
@@ -115,6 +120,11 @@ public class Inventory
 
     }
 
+    /**
+     * Function to update product with new information.
+     * @param index keeps track of which part is selected
+     * @param newProduct controls which part is updated
+     */
     public static void updateProduct(int index, Product newProduct)
     {
         int i = -1;
@@ -128,6 +138,11 @@ public class Inventory
         }
     }
 
+    /**
+     * Function to delete selected part from list.
+     * @param selectedPart controls which part is selected
+     * @return boolean
+     */
     public static boolean deletePart(Part selectedPart)
     {
         for (Part part : allParts)
@@ -140,7 +155,11 @@ public class Inventory
         return false;
     }
 
-
+    /**
+     * Function to delete selected product from list.
+     * @param selectedProduct controls which part is selected
+     * @return boolean
+     */
     public static boolean deleteProduct(Product selectedProduct)
     {
         for (Product product : Inventory.getAllProducts())
@@ -168,7 +187,7 @@ public class Inventory
     }
 
     /**
-     * function to add test data to populate table at beginning
+     * Function to add test data to populate table at beginning.
      * */
     private static void addTestData()
     {

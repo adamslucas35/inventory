@@ -11,6 +11,7 @@ import java.time.Period;
  *
  * @author Adam S Lucas
  */
+
 public class Product {
 
     private ObservableList<Part> associatedParts = FXCollections.observableArrayList();

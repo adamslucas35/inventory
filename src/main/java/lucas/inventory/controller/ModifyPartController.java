@@ -41,8 +41,11 @@ public class ModifyPartController implements Initializable {
     @FXML
     private RadioButton mp_outsource_rbtn;
 
-
-    // Initializer to make sure code is being run through the console
+    /**
+     * Initializes program.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("... modifyPart-view has been initialized ...");
@@ -64,6 +67,11 @@ public class ModifyPartController implements Initializable {
         MainApplication.returnToMain(actionEvent);
     }
 
+    /**
+     * Update all inputted data.
+     * @param actionEvent when save button is clicked.
+     * @throws IOException in case invalid data is entered
+     */
     public void mp_onSaveBtnClick(ActionEvent actionEvent) throws IOException
     {
     try {
@@ -120,6 +128,10 @@ public class ModifyPartController implements Initializable {
 
     }
 
+    /**
+     * Brings data from main pane to modify part pane to be edited.
+     * @param selectedPart from main application
+     */
     public void receivePart(Part selectedPart)
     {
         mp_id_textF.setText(String.valueOf(selectedPart.getId()));

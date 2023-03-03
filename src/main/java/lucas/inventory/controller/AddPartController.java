@@ -39,17 +39,12 @@ public class AddPartController implements Initializable
     @FXML
     private Label ap_changable_lbl;
     @FXML
-    private Button ap_cancelBtn;
-    @FXML
     private RadioButton ap_inHouse_rbtn;
     @FXML
     private RadioButton ap_outsource_rbtn;
-    @FXML
-    private Label error_lbl;
 
 
-    /** Initializer to make sure code is being run through the console.
-     *
+    /** Initializes program.
      * @param url
      * @param resourceBundle
      */
@@ -92,9 +87,12 @@ public class AddPartController implements Initializable
     }
 
     /**
-     * Create product based on input in text fields.
-     * @param actionEvent runs code when save button is clicked*/
-    public void ap_onSaveClick(ActionEvent actionEvent) throws IOException {
+     * Saves all data in input fields to new part when clicked.
+     * @param actionEvent when save button is clicked.
+     * @throws IOException in case of input error
+     */
+    public void ap_onSaveClick(ActionEvent actionEvent) throws IOException
+    {
         try {
             String partName = ap_ihName_textF.getText();
             double partPrice = Double.parseDouble(ap_ihPrice_textF.getText());

@@ -64,6 +64,12 @@ public class ModifyProductController implements Initializable
     private TableColumn<Part, Integer> asp_pPrice_col;
     @FXML
     private ObservableList<Part> assocPartsList = FXCollections.observableArrayList();
+
+    /**
+     * Initializes program.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
@@ -99,6 +105,11 @@ public class ModifyProductController implements Initializable
         MainApplication.returnToMain(actionEvent);
     }
 
+    /**
+     * Updates product based on data entered in fields and table.
+     * @param actionEvent when save button is clicked
+     * @throws IOException in case of invalid data entry
+     */
     public void mpr_onSaveBtnClick(ActionEvent actionEvent) throws IOException
     {
         try
@@ -143,7 +154,10 @@ public class ModifyProductController implements Initializable
 
     }
 
-
+    /**
+     * Retrieves data for selected part in main application
+     * @param selectedProduct product selected from table
+     */
     public void receiveProduct(Product selectedProduct)
     {
         mpr_Id_textF.setText(String.valueOf(selectedProduct.getId()));
@@ -158,10 +172,17 @@ public class ModifyProductController implements Initializable
         associatedPartsTable.setItems(assocPartsList);
     }
 
+    /**
+     * Searches through parts table by name or id.
+     * @param keyEvent when key is released
+     */
     public void mpr_onKeyRelease_SearchParts(KeyEvent keyEvent)
     {
         String searchedPart = mpr_partsSearch_textF.getText();
         ObservableList<Part> filteredParts = Inventory.lookupPart(searchedPart);
+        Alert warning = new Alert(Alert.AlertType.WARNING);
+        warning.setTitle("Not found");
+        warning.setContentText("No items have not been found");
 
         if (filteredParts.isEmpty()) {
             try {
@@ -174,8 +195,17 @@ public class ModifyProductController implements Initializable
             {/*ignore*/}
         }
 
+        if (filteredParts.isEmpty())
+        {
+            warning.showAndWait();
+        }
         mpr_partsTable.setItems(filteredParts);
     }
+
+    /**
+     * Adds data from parts table to associatedPartsTable.
+     * @param actionEvent when add button is clicked
+     */
     public void mpr_onAddClick(ActionEvent actionEvent)
     {
 
@@ -187,14 +217,25 @@ public class ModifyProductController implements Initializable
 
     }
 
+    /**
+     * Removes parts from associated parts table, removing it from product.
+     * @param actionEvent when remove button is clicked
+     */
     public void mpr_onRemoveClick(ActionEvent actionEvent)
     {
+        Alert warning = new Alert(Alert.AlertType.WARNING);
+        warning.setTitle("Not found");
+        warning.setContentText("Nothing was selected and nothing was deleted.");
         Part selectedPart = associatedPartsTable.getSelectionModel().getSelectedItem();
+
 
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you would like to remove this part from the table?");
         Optional<ButtonType> choice = confirm.showAndWait();
 
-        if (choice.isPresent() && choice.get() == ButtonType.OK)
+        if (selectedPart == null) {
+            warning.showAndWait();
+        }
+        else if (choice.isPresent() && choice.get() == ButtonType.OK )
         {
             assocPartsList.remove(selectedPart);
         }

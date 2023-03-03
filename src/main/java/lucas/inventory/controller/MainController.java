@@ -23,12 +23,13 @@ import java.text.NumberFormat;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-/** This class controls elements, buttons, and text in the main-view.fxml file. */
+/** This class controls elements, buttons, and text in the main-view.fxml file.
+ * <b>FUTURE ENHANCEMENT: I feel the ability to modify parts and products through double clicking would enhance
+ * the functionality of this program. Multiple times while testing my code I would double click a product to open
+ * it up and of course nothing would happen. The buttons are nice to have, but a simple way to open and modify parts
+ * and products would be nice.</b>*/
 public class MainController implements Initializable
 {
-    /**
-     * Initiate fields for main-view tables.
-     * */
     @FXML
     private TableView<Part> parts_table;
     @FXML
@@ -54,6 +55,11 @@ public class MainController implements Initializable
     @FXML
     private TextField searchProducts_textF;
 
+    /**
+     * Initialized program.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
@@ -92,15 +98,25 @@ public class MainController implements Initializable
      * @throws IOException in case of input/output error*/
     public void onModifyPartClick(ActionEvent actionEvent) throws IOException
     {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainApplication.class.getResource("modifyPart-view.fxml"));
-        loader.load();
-        ModifyPartController mp_controller = loader.getController();
-        mp_controller.receivePart(parts_table.getSelectionModel().getSelectedItem());
-        Stage stage = (Stage)((Button)(actionEvent.getSource())).getScene().getWindow();
-        Scene scene = new Scene(loader.getRoot(), 537, 546);
-        stage.setScene(scene);
-        stage.show();
+        Part selectedPart = parts_table.getSelectionModel().getSelectedItem();
+        if (selectedPart == null)
+        {
+            Alert warning = new Alert(Alert.AlertType.WARNING);
+            warning.setTitle("Not found");
+            warning.setContentText("Nothing was selected.");
+            warning.showAndWait();
+        } else {
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApplication.class.getResource("modifyPart-view.fxml"));
+            loader.load();
+            ModifyPartController mp_controller = loader.getController();
+            mp_controller.receivePart(parts_table.getSelectionModel().getSelectedItem());
+            Stage stage = (Stage) ((Button) (actionEvent.getSource())).getScene().getWindow();
+            Scene scene = new Scene(loader.getRoot(), 537, 546);
+            stage.setScene(scene);
+            stage.show();
+        }
 
 
     }
@@ -122,15 +138,24 @@ public class MainController implements Initializable
      * @throws IOException in case of input/output error*/
     public void onModifyProductClick(ActionEvent actionEvent) throws IOException
     {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainApplication.class.getResource("modifyProduct-view.fxml"));
-        loader.load();
-        ModifyProductController mpr_controller = loader.getController();
-        mpr_controller.receiveProduct(products_table.getSelectionModel().getSelectedItem());
-        Stage stage = (Stage)((Button)(actionEvent.getSource())).getScene().getWindow();
-        Scene scene = new Scene(loader.getRoot(), 928, 548);
-        stage.setScene(scene);
-        stage.show();
+        Product selcetedProduct = products_table.getSelectionModel().getSelectedItem();
+        if (selcetedProduct == null)
+        {
+            Alert warning = new Alert(Alert.AlertType.WARNING);
+            warning.setTitle("Not found");
+            warning.setContentText("Nothing was selected.");
+            warning.showAndWait();
+        } else {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApplication.class.getResource("modifyProduct-view.fxml"));
+            loader.load();
+            ModifyProductController mpr_controller = loader.getController();
+            mpr_controller.receiveProduct(products_table.getSelectionModel().getSelectedItem());
+            Stage stage = (Stage) ((Button) (actionEvent.getSource())).getScene().getWindow();
+            Scene scene = new Scene(loader.getRoot(), 928, 548);
+            stage.setScene(scene);
+            stage.show();
+        }
     }
 
     /**Method to exit application.
@@ -143,10 +168,17 @@ public class MainController implements Initializable
         stage.close();
     }
 
+    /**
+     * Searches for parts in table by name or id.
+     * @param keyEvent when key is released
+     */
     public void onKeyRelease_SearchParts(KeyEvent keyEvent)
     {
         String searchedPart = searchParts_textF.getText();
         ObservableList<Part> filteredParts = Inventory.lookupPart(searchedPart);
+        Alert warning = new Alert(Alert.AlertType.WARNING);
+        warning.setTitle("Not found");
+        warning.setContentText("No items have not been found");
 
         if (filteredParts.isEmpty()) {
             try {
@@ -158,13 +190,23 @@ public class MainController implements Initializable
             catch (NumberFormatException e)
             {/*ignore*/}
         }
-
+        if (filteredParts.isEmpty())
+        {
+            warning.showAndWait();
+        }
         parts_table.setItems(filteredParts);
     }
+    /**
+     * Searches for products in table by name or id.
+     * @param keyEvent when key is released
+     */
     public void onKeyRelease_SearchProducts(KeyEvent keyEvent)
     {
         String searchedProduct = searchProducts_textF.getText();
         ObservableList<Product> filteredProducts = Inventory.lookupProduct(searchedProduct);
+        Alert warning = new Alert(Alert.AlertType.WARNING);
+        warning.setTitle("Not found");
+        warning.setContentText("No items have not been found");
 
         if(filteredProducts.isEmpty())
         {
@@ -179,10 +221,19 @@ public class MainController implements Initializable
             {/*ignore*/}
         }
 
+        if (filteredProducts.isEmpty())
+        {
+            warning.showAndWait();
+        }
+
 
         products_table.setItems(filteredProducts);
     }
 
+    /**
+     * Removes selected part from parts table.
+     * @param actionEvent when delete button is clicked.
+     */
     public void onDeletePartClick(ActionEvent actionEvent)
     {
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you would like to remove this part from the table?");
@@ -192,6 +243,11 @@ public class MainController implements Initializable
             Inventory.deletePart(parts_table.getSelectionModel().getSelectedItem());
     }
 
+    /**
+     * Removes selected product from product table.
+     * Each associated part must be removed as well.
+     * @param actionEvent when delete button is clicked.
+     */
     public void onDeleteProductClick(ActionEvent actionEvent)
     {
         Product deletableProduct = products_table.getSelectionModel().getSelectedItem();

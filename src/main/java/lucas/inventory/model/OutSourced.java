@@ -1,5 +1,6 @@
 package lucas.inventory.model;
 
+
 public class OutSourced extends Part
 {
     //fields
