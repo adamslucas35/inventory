@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.security.ProtectionDomain;
 import java.text.NumberFormat;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /** This class controls elements, buttons, and text in the main-view.fxml file. */
@@ -184,11 +185,33 @@ public class MainController implements Initializable
 
     public void onDeletePartClick(ActionEvent actionEvent)
     {
-        Inventory.deletePart(parts_table.getSelectionModel().getSelectedItem());
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you would like to remove this part from the table?");
+        Optional<ButtonType> choice = confirm.showAndWait();
+        confirm.setTitle("Unable to Delete");
+        if (choice.isPresent() && choice.get() == ButtonType.OK)
+            Inventory.deletePart(parts_table.getSelectionModel().getSelectedItem());
     }
 
     public void onDeleteProductClick(ActionEvent actionEvent)
     {
-        Inventory.deleteProduct(products_table.getSelectionModel().getSelectedItem());
+        Product deletableProduct = products_table.getSelectionModel().getSelectedItem();
+        if (deletableProduct.getAllAssociatedParts().size() > 0)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Unable to delete");
+            alert.setContentText("Product contains an associated part.\nPlease remove all associated parts before deleting.");
+            alert.showAndWait();
+        }
+        else
+        {
+            Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you would like to remove this product from the table?");
+            Optional<ButtonType> choice = confirm.showAndWait();
+
+            if (choice.isPresent() && choice.get() == ButtonType.OK)
+            {
+                Inventory.deleteProduct(deletableProduct);
+            }
+
+        }
     }
 }

@@ -21,6 +21,7 @@ import lucas.inventory.model.Product;
 import java.io.IOException;
 import java.net.URL;
 import java.security.cert.CertificateNotYetValidException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 /** This class controls elements, buttons, and text in the modifyProduct-view.fxml file*/
 public class ModifyProductController implements Initializable
@@ -189,6 +190,13 @@ public class ModifyProductController implements Initializable
     public void mpr_onRemoveClick(ActionEvent actionEvent)
     {
         Part selectedPart = associatedPartsTable.getSelectionModel().getSelectedItem();
-        assocPartsList.remove(selectedPart);
+
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you would like to remove this part from the table?");
+        Optional<ButtonType> choice = confirm.showAndWait();
+
+        if (choice.isPresent() && choice.get() == ButtonType.OK)
+        {
+            assocPartsList.remove(selectedPart);
+        }
     }
 }

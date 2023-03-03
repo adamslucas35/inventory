@@ -61,10 +61,6 @@ public class MainApplication extends Application {
     }
 
 
-
-
-
-
     /**Method to launch application.
      * @param args accepts all arguments*/
     public static void main(String[] args) {
