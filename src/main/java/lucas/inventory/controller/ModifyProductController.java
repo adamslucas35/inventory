@@ -7,15 +7,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import lucas.inventory.MainApplication;
+import lucas.inventory.model.InvalidValuesException;
 import lucas.inventory.model.Inventory;
 import lucas.inventory.model.Part;
 import lucas.inventory.model.Product;
@@ -102,21 +100,45 @@ public class ModifyProductController implements Initializable
 
     public void mpr_onSaveBtnClick(ActionEvent actionEvent) throws IOException
     {
+        try
+        {
         int id = Integer.parseInt(mpr_Id_textF.getText());
         String name = mpr_Name_textF.getText();
-        int stock = Integer.parseInt(mpr_Inv_textF.getText());
+        int productStock = Integer.parseInt(mpr_Inv_textF.getText());
         double price = Double.parseDouble(mpr_Price_textF.getText());
-        int max = Integer.parseInt(mpr_Max_textF.getText());
-        int min = Integer.parseInt(mpr_Min_textF.getText());
+        int productMax = Integer.parseInt(mpr_Max_textF.getText());
+        int productMin = Integer.parseInt(mpr_Min_textF.getText());
 
-        Product newProduct = new Product(id, name, price, stock, min, max);
+        Product newProduct = new Product(id, name, price, productStock, productMin, productMax);
         for (Part part : assocPartsList)
         {
             newProduct.addAssociatedPart(part);
         }
         Inventory.updateProduct(id, newProduct);
+        if (productMin >= productMax)
+            throw new InvalidValuesException(productStock, productMin, productMax);
+        if (productStock > productMax || productStock < productMin)
+            throw new InvalidValuesException(productStock, productMin, productMax);
 
         MainApplication.returnToMain(actionEvent);
+    }
+        catch (NumberFormatException e)
+    {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Invalid Data");
+        alert.setContentText("Please check that all data has been entered correctly");
+        alert.showAndWait();
+
+//            error_lbl.setText("Please check that all data has been entered correctly.");
+//            System.out.println("Exception: " + e.getMessage());
+    }
+        catch (InvalidValuesException e)
+    {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Invalid Values");
+        alert.setContentText(e.getMessage());
+        alert.showAndWait();
+    }
 
     }
 

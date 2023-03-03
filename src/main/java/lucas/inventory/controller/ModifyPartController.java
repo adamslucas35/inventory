@@ -5,16 +5,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import lucas.inventory.MainApplication;
-import lucas.inventory.model.InHouse;
-import lucas.inventory.model.Inventory;
-import lucas.inventory.model.OutSourced;
-import lucas.inventory.model.Part;
+import lucas.inventory.model.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -72,26 +66,41 @@ public class ModifyPartController implements Initializable {
 
     public void mp_onSaveBtnClick(ActionEvent actionEvent) throws IOException
     {
-
-        int index = Integer.parseInt(mp_id_textF.getText());
-        String name = mp_name_textF.getText();
-        int stock = Integer.parseInt(mp_inv_textF.getText());
-        double price = Double.parseDouble(mp_price_textF.getText());
-        int max = Integer.parseInt(mp_max_textF.getText());
-        int min = Integer.parseInt(mp_min_textF.getText());
-
-        if (mp_inHouse_rbtn.isSelected())
-        {
+    try {
+        int partIndex = Integer.parseInt(mp_id_textF.getText());
+        String partName = mp_name_textF.getText();
+        int partStock = Integer.parseInt(mp_inv_textF.getText());
+        double partPrice = Double.parseDouble(mp_price_textF.getText());
+        int partMax = Integer.parseInt(mp_max_textF.getText());
+        int partMin = Integer.parseInt(mp_min_textF.getText());
+        if (partMin >= partMax)
+            throw new InvalidValuesException(partStock, partMin, partMax);
+        else if (partStock > partMax || partStock < partMin)
+            throw new InvalidValuesException(partStock, partMin, partMax);
+        else if (mp_inHouse_rbtn.isSelected()) {
             int machinedId = Integer.parseInt(mp_change_textF.getText());
-            Inventory.updatePart(index, new InHouse(index, name, price, stock, max, min, machinedId));
-        }
-        else if (mp_outsource_rbtn.isSelected())
-        {
+            Inventory.updatePart(partIndex, new InHouse(partIndex, partName, partPrice, partStock, partMax, partMin, machinedId));
+        } else if (mp_outsource_rbtn.isSelected()) {
             String companyName = mp_change_textF.getText();
-            Inventory.updatePart(index, new OutSourced(index, name, price, stock, max, min, companyName));
+            Inventory.updatePart(partIndex, new OutSourced(partIndex, partName, partPrice, partStock, partMax, partMin, companyName));
         }
 
         MainApplication.returnToMain(actionEvent);
+    }
+    catch (NumberFormatException e)
+    {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Invalid Data");
+        alert.setContentText("Please check that all data is entered correctly.");
+        alert.showAndWait();
+    }
+    catch (InvalidValuesException e)
+    {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Invalid Values");
+        alert.setContentText(e.getMessage());
+        alert.showAndWait();
+    }
     }
 
     /** Radio button to control which text is shown.

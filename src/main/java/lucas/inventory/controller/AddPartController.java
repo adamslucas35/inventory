@@ -5,13 +5,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import lucas.inventory.MainApplication;
 import lucas.inventory.model.InHouse;
+import lucas.inventory.model.InvalidValuesException;
 import lucas.inventory.model.Inventory;
 import lucas.inventory.model.OutSourced;
 
@@ -97,30 +95,42 @@ public class AddPartController implements Initializable
      * Create product based on input in text fields.
      * @param actionEvent runs code when save button is clicked*/
     public void ap_onSaveClick(ActionEvent actionEvent) throws IOException {
-        try
-        {
+        try {
             String partName = ap_ihName_textF.getText();
             double partPrice = Double.parseDouble(ap_ihPrice_textF.getText());
             int partStock = Integer.parseInt(ap_ihInv_testF.getText());
             int partMin = Integer.parseInt(ap_ihMin_textF.getText());
             int partMax = Integer.parseInt(ap_ihMax_textF.getText());
-
-            if (ap_inHouse_rbtn.isSelected())
-            {
+            if (partMin >= partMax) {
+                throw new InvalidValuesException(partStock, partMin, partMax);
+            } else if (partStock < partMin || partStock > partMax) {
+                throw new InvalidValuesException(partStock, partMin, partMax);
+            } else if (ap_inHouse_rbtn.isSelected()) {
                 int partMachineId = Integer.parseInt(ap_change_textF.getText());
                 Inventory.addPart(new InHouse(MainApplication.generatePartsID(), partName, partPrice, partStock, partMin, partMax, partMachineId));
-            }
-            else if (ap_outsource_rbtn.isSelected())
-            {
+            } else if (ap_outsource_rbtn.isSelected()) {
                 String partCompanyName = ap_change_textF.getText();
                 Inventory.addPart(new OutSourced(MainApplication.generatePartsID(), partName, partPrice, partStock, partMin, partMax, partCompanyName));
             }
             MainApplication.returnToMain(actionEvent);
+
         }
         catch (NumberFormatException e)
         {
-            error_lbl.setText("Please check that all data has been entered correctly.");
-            System.out.println("Exception: " + e.getMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Data");
+            alert.setContentText("Please check that all data has been entered correctly");
+            alert.showAndWait();
+
+//            error_lbl.setText("Please check that all data has been entered correctly.");
+//            System.out.println("Exception: " + e.getMessage());
+        }
+        catch (InvalidValuesException e)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Values");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
         }
 
 

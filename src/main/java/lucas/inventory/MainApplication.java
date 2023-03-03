@@ -4,7 +4,9 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import lucas.inventory.model.InHouse;
 import lucas.inventory.model.Inventory;
@@ -13,6 +15,7 @@ import lucas.inventory.model.Product;
 import lucas.inventory.model.Part;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import static lucas.inventory.model.Inventory.getAllParts;
 import static lucas.inventory.model.Inventory.getAllProducts;
@@ -56,6 +59,9 @@ public class MainApplication extends Application {
             index++;
         return index;
     }
+
+
+
 
 
 
