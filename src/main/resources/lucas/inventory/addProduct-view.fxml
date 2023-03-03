@@ -12,7 +12,10 @@
    <children>
       <AnchorPane layoutX="23.0" layoutY="17.0" prefHeight="514.0" prefWidth="881.0" style="-fx-border-color: black; -fx-border-radius: 10px;">
          <children>
-            <TextField fx:id="pr_id_textF" layoutX="121.0" layoutY="106.0" />
+            <TextField fx:id="pr_id_textF" layoutX="121.0" layoutY="106.0" text="Auto Gen - Disabled">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font></TextField>
             <TextField fx:id="pr_name_textF" layoutX="121.0" layoutY="144.0" />
             <TextField fx:id="pr_inv_textF" layoutX="121.0" layoutY="177.0" prefHeight="25.0" prefWidth="106.0" />
             <TextField fx:id="pr_price_textF" layoutX="121.0" layoutY="211.0" prefHeight="25.0" prefWidth="106.0" />
@@ -29,27 +32,27 @@
             <Label layoutX="50.0" layoutY="215.0" text="Price" />
             <Label layoutX="50.0" layoutY="251.0" text="Max" />
             <Label layoutX="249.0" layoutY="251.0" text="Min" />
-            <TableView layoutX="484.0" layoutY="69.0" prefHeight="152.0" prefWidth="369.0">
+            <TableView fx:id="apr_partsTable" layoutX="484.0" layoutY="69.0" prefHeight="152.0" prefWidth="369.0">
               <columns>
-                <TableColumn prefWidth="61.333343505859375" text="Part ID" />
-                <TableColumn prefWidth="71.99993896484375" text="Part Name" />
-                  <TableColumn prefWidth="103.3333740234375" text="Inventory Level" />
-                  <TableColumn prefWidth="132.0" text="Price/Cost per Unit" />
+                <TableColumn fx:id="apr_p_partId_col" prefWidth="61.333343505859375" text="Part ID" />
+                <TableColumn fx:id="apr_p_partName_col" prefWidth="71.99993896484375" text="Part Name" />
+                  <TableColumn fx:id="apr_p_invLevel_col" prefWidth="103.3333740234375" text="Inventory Level" />
+                  <TableColumn fx:id="apr_p_price_col" prefWidth="132.0" text="Price/Cost per Unit" />
               </columns>
             </TableView>
-            <Button layoutX="788.0" layoutY="224.0" mnemonicParsing="false" text="Add" />
-            <Button layoutX="699.0" layoutY="428.0" mnemonicParsing="false" text="Remove Associated Part" />
+            <Button fx:id="apr_addParts_btn" layoutX="788.0" layoutY="224.0" mnemonicParsing="false" onAction="#apr_onAddClick" text="Add" />
+            <Button fx:id="apr_removeAP_btn" layoutX="699.0" layoutY="428.0" mnemonicParsing="false" onAction="#apr_onRemoveClick" text="Remove Associated Part" />
             <Button fx:id="pr_save_btn" layoutX="699.0" layoutY="462.0" mnemonicParsing="false" onAction="#pr_onSaveClick" text="Save" />
             <Button fx:id="apr_cancel_btn" layoutX="788.0" layoutY="462.0" mnemonicParsing="false" onAction="#pr_onCancelClick" text="Cancel" />
-            <TableView layoutX="484.0" layoutY="257.0" prefHeight="152.0" prefWidth="369.0">
+            <TableView fx:id="associatedPartsTable" layoutX="473.0" layoutY="260.0" prefHeight="152.0" prefWidth="369.0">
                <columns>
-                  <TableColumn prefWidth="61.333343505859375" text="Part ID" />
-                  <TableColumn prefWidth="71.99993896484375" text="Part Name" />
-                  <TableColumn prefWidth="103.3333740234375" text="Inventory Level" />
-                  <TableColumn prefWidth="132.0" text="Price/Cost per Unit" />
+                  <TableColumn fx:id="asp_pId_col" prefWidth="61.333343505859375" text="Part ID" />
+                  <TableColumn fx:id="asp_pName_col" prefWidth="71.99993896484375" text="Part Name" />
+                  <TableColumn fx:id="asp_pInv_col" prefWidth="103.3333740234375" text="Inventory Level" />
+                  <TableColumn fx:id="asp_pPrice_col" prefWidth="132.0" text="Price/Cost per Unit" />
                </columns>
             </TableView>
-            <TextField layoutX="696.0" layoutY="32.0" promptText="Search by Part ID or Number" />
+            <TextField fx:id="apr_partsSearch_textF" layoutX="696.0" layoutY="32.0" onKeyReleased="#apr_onKeyRelease_SearchParts" promptText="Search by Part ID or Number" />
          </children>
       </AnchorPane>
    </children>

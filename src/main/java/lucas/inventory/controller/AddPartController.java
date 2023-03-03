@@ -20,20 +20,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /** This class controls elements, buttons, and text in the addPart-view.fxml file*/
-public class AddPartController implements Initializable {
-
-    /** Initializer to make sure code is being run through the console.
-     *
-     * @param url
-     * @param resourceBundle
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle)
-    {
-        System.out.println("... addPart-view has been initialized ...");
-        ap_Id_textF.setEditable(false);
-        ap_Id_textF.setDisable(true);
-    }
+public class AddPartController implements Initializable
+{
     @FXML
     private TextField ap_Id_textF;
     @FXML
@@ -58,7 +46,23 @@ public class AddPartController implements Initializable {
     private RadioButton ap_inHouse_rbtn;
     @FXML
     private RadioButton ap_outsource_rbtn;
+    @FXML
+    private Label error_lbl;
 
+
+    /** Initializer to make sure code is being run through the console.
+     *
+     * @param url
+     * @param resourceBundle
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle)
+    {
+        System.out.println("... addPart-view has been initialized ...");
+        ap_Id_textF.setEditable(false);
+        ap_Id_textF.setDisable(true);
+
+    }
 
 
 
@@ -93,25 +97,33 @@ public class AddPartController implements Initializable {
      * Create product based on input in text fields.
      * @param actionEvent runs code when save button is clicked*/
     public void ap_onSaveClick(ActionEvent actionEvent) throws IOException {
-        String partName = ap_ihName_textF.getText();
-        double partPrice = Double.parseDouble(ap_ihPrice_textF.getText());
-        int partStock = Integer.parseInt(ap_ihInv_testF.getText());
-        int partMin = Integer.parseInt(ap_ihMin_textF.getText());
-        int partMax = Integer.parseInt(ap_ihMax_textF.getText());
-
-        if (ap_inHouse_rbtn.isSelected())
+        try
         {
-            int partMachineId = Integer.parseInt(ap_change_textF.getText());
-            Inventory.addPart(new InHouse(MainApplication.generatePartsID(), partName, partPrice, partStock, partMin, partMax, partMachineId));
+            String partName = ap_ihName_textF.getText();
+            double partPrice = Double.parseDouble(ap_ihPrice_textF.getText());
+            int partStock = Integer.parseInt(ap_ihInv_testF.getText());
+            int partMin = Integer.parseInt(ap_ihMin_textF.getText());
+            int partMax = Integer.parseInt(ap_ihMax_textF.getText());
+
+            if (ap_inHouse_rbtn.isSelected())
+            {
+                int partMachineId = Integer.parseInt(ap_change_textF.getText());
+                Inventory.addPart(new InHouse(MainApplication.generatePartsID(), partName, partPrice, partStock, partMin, partMax, partMachineId));
+            }
+            else if (ap_outsource_rbtn.isSelected())
+            {
+                String partCompanyName = ap_change_textF.getText();
+                Inventory.addPart(new OutSourced(MainApplication.generatePartsID(), partName, partPrice, partStock, partMin, partMax, partCompanyName));
+            }
+            MainApplication.returnToMain(actionEvent);
         }
-        else if (ap_outsource_rbtn.isSelected())
+        catch (NumberFormatException e)
         {
-            String partCompanyName = ap_change_textF.getText();
-            Inventory.addPart(new OutSourced(MainApplication.generatePartsID(), partName, partPrice, partStock, partMin, partMax, partCompanyName));
+            error_lbl.setText("Please check that all data has been entered correctly.");
+            System.out.println("Exception: " + e.getMessage());
         }
 
 
 
-        MainApplication.returnToMain(actionEvent);
     }
 }

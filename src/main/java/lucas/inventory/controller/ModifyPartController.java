@@ -80,13 +80,16 @@ public class ModifyPartController implements Initializable {
         int max = Integer.parseInt(mp_max_textF.getText());
         int min = Integer.parseInt(mp_min_textF.getText());
 
-            if (mp_inHouse_rbtn.isSelected()) {
-                int machinedId = Integer.parseInt(mp_change_textF.getText());
-                Inventory.updatePart(index, new InHouse(index, name, price, stock, max, min, machinedId));
-            } else if (mp_outsource_rbtn.isSelected()) {
-                String companyName = mp_change_textF.getText();
-                Inventory.updatePart(index, new OutSourced(index, name, price, stock, max, min, companyName));
-            }
+        if (mp_inHouse_rbtn.isSelected())
+        {
+            int machinedId = Integer.parseInt(mp_change_textF.getText());
+            Inventory.updatePart(index, new InHouse(index, name, price, stock, max, min, machinedId));
+        }
+        else if (mp_outsource_rbtn.isSelected())
+        {
+            String companyName = mp_change_textF.getText();
+            Inventory.updatePart(index, new OutSourced(index, name, price, stock, max, min, companyName));
+        }
 
         MainApplication.returnToMain(actionEvent);
     }
@@ -121,7 +124,9 @@ public class ModifyPartController implements Initializable {
             mp_inHouse_rbtn.fire();
             mp_inHouse_rbtn.setSelected(true);
             mp_change_textF.setText(String.valueOf(((InHouse)selectedPart).getMachineId()));
-        } else if (selectedPart instanceof OutSourced) {
+        }
+        else if (selectedPart instanceof OutSourced)
+        {
             mp_outsource_rbtn.fire();
             mp_outsource_rbtn.setSelected(true);
             mp_change_textF.setText(((OutSourced)selectedPart).getCompanyName());

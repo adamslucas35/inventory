@@ -36,10 +36,10 @@
             <children>
                 <TableView fx:id="products_table" layoutX="14.0" layoutY="35.0" prefHeight="141.0" prefWidth="382.0">
                     <columns>
-                        <TableColumn fx:id="pr_productId_col" prefWidth="59.333282470703125" text="Product Id" />
-                        <TableColumn fx:id="pr_productName_col" prefWidth="97.0" text="Product Name" />
-                        <TableColumn fx:id="pr_invLevel_col" prefWidth="98.33331298828125" text="Inventory Level" />
-                        <TableColumn fx:id="pr_price_col" prefWidth="125.3333740234375" text="Price/Cost per Unit" />
+                        <TableColumn fx:id="pr_productId_col" prefWidth="66.0" text="Product Id" />
+                        <TableColumn fx:id="pr_productName_col" prefWidth="91.99993896484375" text="Product Name" />
+                        <TableColumn fx:id="pr_invLevel_col" prefWidth="93.3333740234375" text="Inventory Level" />
+                        <TableColumn fx:id="pr_price_col" prefWidth="131.3333740234375" text="Price/Cost per Unit" />
                     </columns>
                 </TableView>
                 <Label layoutX="24.0" layoutY="14.0" text="Products">

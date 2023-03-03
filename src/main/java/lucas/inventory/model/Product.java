@@ -5,13 +5,15 @@ package lucas.inventory.model; /**
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.time.Period;
+
 /**
  *
  * @author Adam S Lucas
  */
 public class Product {
 
-    private final ObservableList<Part> associatedParts = FXCollections.observableArrayList();
+    private ObservableList<Part> associatedParts = FXCollections.observableArrayList();
     private int id;
     private String name;
     private double price;
@@ -135,7 +137,13 @@ public class Product {
      * */
     public void addAssociatedPart(Part part)
     {
-        associatedParts.add(part);
+        for (Part p : Inventory.getAllParts())
+        {
+            if (part.getId() == p.getId())
+            {
+                associatedParts.add(p);
+            }
+        }
     }
 
     /**
@@ -144,7 +152,14 @@ public class Product {
      * */
     public boolean deleteAssociatedPart(Part selectedAssociatedPart)
     {
-        return selectedAssociatedPart == associatedParts;
+        for (Part part: getAllAssociatedParts())
+        {
+            if (part.getId() == selectedAssociatedPart.getId())
+            {
+                return getAllAssociatedParts().remove(part);
+            }
+        }
+        return false;
     }
     /**
      * To return all items in list.
@@ -154,6 +169,11 @@ public class Product {
     public ObservableList<Part> getAllAssociatedParts()
     {
         return associatedParts;
+    }
+
+    public void saveParts(ObservableList<Part> assocParts)
+    {
+        associatedParts = assocParts;
     }
 
 }

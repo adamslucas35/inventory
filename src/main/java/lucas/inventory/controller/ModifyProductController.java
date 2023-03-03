@@ -1,21 +1,28 @@
 package lucas.inventory.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import lucas.inventory.MainApplication;
 import lucas.inventory.model.Inventory;
+import lucas.inventory.model.Part;
 import lucas.inventory.model.Product;
 
 import java.io.IOException;
 import java.net.URL;
+import java.security.cert.CertificateNotYetValidException;
 import java.util.ResourceBundle;
 /** This class controls elements, buttons, and text in the modifyProduct-view.fxml file*/
 public class ModifyProductController implements Initializable
@@ -33,15 +40,55 @@ public class ModifyProductController implements Initializable
     @FXML
     private TextField mpr_Min_textF;
     @FXML
-    private TextField mpr_partsSearch;
+    private TextField mpr_partsSearch_textF;
+
     @FXML
-    private TableView mpr_partsTable_textF;
+    private TableView<Part> mpr_partsTable;
+    @FXML
+    private TableColumn<Part, Integer> mpr_p_partId_col;
+    @FXML
+    private TableColumn<Part, String> mpr_p_partName_col;
+    @FXML
+    private TableColumn<Part, Integer> mpr_p_invLevel_col;
+    @FXML
+    private TableColumn<Part, Integer> mpr_p_price_col;
+
+    @FXML
+    private TableView<Part> associatedPartsTable;
+    @FXML
+    private TableColumn<Part, Integer> asp_pId_col;
+    @FXML
+    private TableColumn<Part, String> asp_pName_col;
+    @FXML
+    private TableColumn<Part, Integer> asp_pInv_col;
+    @FXML
+    private TableColumn<Part, Integer> asp_pPrice_col;
+    @FXML
+    private ObservableList<Part> assocPartsList = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
         System.out.println("...  modifyProduct-view has been initialized ...");
         mpr_Id_textF.setEditable(false);
         mpr_Id_textF.setDisable(true);
+
+        mpr_partsTable.setItems(Inventory.getAllParts());
+
+
+
+        mpr_p_partId_col.setCellValueFactory(new PropertyValueFactory<>("id"));
+        mpr_p_partName_col.setCellValueFactory(new PropertyValueFactory<>("name"));
+        mpr_p_invLevel_col.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        mpr_p_price_col.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+
+        asp_pId_col.setCellValueFactory(new PropertyValueFactory<>("id"));
+        asp_pName_col.setCellValueFactory(new PropertyValueFactory<>("name"));
+        asp_pInv_col.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        asp_pPrice_col.setCellValueFactory(new PropertyValueFactory<>("price"));
+        
+
+
 
     }
     /** This method exits pane when cancel button is clicked.
@@ -61,9 +108,13 @@ public class ModifyProductController implements Initializable
         double price = Double.parseDouble(mpr_Price_textF.getText());
         int max = Integer.parseInt(mpr_Max_textF.getText());
         int min = Integer.parseInt(mpr_Min_textF.getText());
-        Inventory.updateProduct(id, new Product(id, name, price, stock, min, max));
 
-
+        Product newProduct = new Product(id, name, price, stock, min, max);
+        for (Part part : assocPartsList)
+        {
+            newProduct.addAssociatedPart(part);
+        }
+        Inventory.updateProduct(id, newProduct);
 
         MainApplication.returnToMain(actionEvent);
 
@@ -79,6 +130,43 @@ public class ModifyProductController implements Initializable
         mpr_Max_textF.setText(String.valueOf(selectedProduct.getMax()));
         mpr_Min_textF.setText(String.valueOf(selectedProduct.getMin()));
 
+        assocPartsList = selectedProduct.getAllAssociatedParts();
 
+        associatedPartsTable.setItems(assocPartsList);
+    }
+
+    public void mpr_onKeyRelease_SearchParts(KeyEvent keyEvent)
+    {
+        String searchedPart = mpr_partsSearch_textF.getText();
+        ObservableList<Part> filteredParts = Inventory.lookupPart(searchedPart);
+
+        if (filteredParts.isEmpty()) {
+            try {
+                int id_searchedPart = Integer.parseInt(searchedPart);
+                Part part = Inventory.lookupPart(id_searchedPart);
+                if (part != null)
+                    filteredParts.add(part);
+            }
+            catch (NumberFormatException e)
+            {/*ignore*/}
+        }
+
+        mpr_partsTable.setItems(filteredParts);
+    }
+    public void mpr_onAddClick(ActionEvent actionEvent)
+    {
+
+        Part newProduct;
+        newProduct = mpr_partsTable.getSelectionModel().getSelectedItem();
+
+        if (newProduct != null)
+            assocPartsList.add(newProduct);
+
+    }
+
+    public void mpr_onRemoveClick(ActionEvent actionEvent)
+    {
+        Part selectedPart = associatedPartsTable.getSelectionModel().getSelectedItem();
+        assocPartsList.remove(selectedPart);
     }
 }
